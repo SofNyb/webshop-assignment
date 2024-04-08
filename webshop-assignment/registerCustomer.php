@@ -10,6 +10,8 @@ include "includes/head.php";
  * These are keys to access the actual data provided by a user.
  */
 
+$errorPW = ""; // Initialiser fejlmeddelelse til tom
+
 if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['userPW'])) :
 
     # Assigning user data to variables for easy access later.
@@ -19,27 +21,28 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
     $confirmedPW = $_POST['confirmedPW'];
 
     if($userPW !== $confirmedPW){
-        echo "Adgangskoderne er ikke ens." . '<br>' . "Prøv venligst igen";
+        $errorPW = "Adgangskoderne er ikke ens." . '<br>' . "Prøv venligst igen";
+    }else{ //adgangskoderne er ens:
+
+        # SQL query for Inserting the Form Data into the users table.
+        $sql = "INSERT INTO `login` (`userName`, `userEmail`, `userPW`) VALUES ('$userName', '$userEmail', '$userPW')";
+
+        try {
+            $stmt = $handler->prepare($sql);
+            $stmt->execute([$userName, $userEmail, $userPW]);
+
+            # Tjekker om forespørgslen blev udført korrekt
+            if ($stmt->rowCount() > 0) {
+                echo 'Velkommen til ' . $_POST["userName"] . '<br><br>' . '<a href="./products.php">Gå til produktsiden</a>';
+                exit;
+            } else {
+                echo "Der skete en fejl." . '<br><br>' . '<a href="./registerCustomer.php">Prøv igen</a>';
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
+        }
         exit;
     }
-
-    # SQL query for Inserting the Form Data into the users table.
-    $sql = "INSERT INTO `login` (`userName`, `userEmail`, `userPW`) VALUES ('$userName', '$userEmail', '$userPW')";
-
-    try {
-        $stmt = $handler->prepare($sql);
-        $stmt->execute([$userName, $userEmail, $userPW]);
-
-        # Tjekker om forespørgslen blev udført korrekt
-        if ($stmt->rowCount() > 0) {
-            echo 'Velkommen til ' . $_POST["userName"] . '<br><br>' . '<a href="./products.php">Gå til produktsiden</a>';
-        } else {
-            echo "Der skete en fejl." . '<br><br>' . '<a href="./registerCustomer.php">Prøv igen</a>';
-        }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
-    }
-    exit;
 endif;
 ?>
 <!--
@@ -65,36 +68,47 @@ endif;
 
 <div class="container mt-5">
     <div class="card p-3">
+
         <form action="registerCustomer.php" method="post">
+
             <div class="row mb-2">
                 <label for="userName" class="col-form-label">Brugernavn</label>
                 <div>
                     <input type="text" class="form-control" id="userName" name="userName">
                 </div>
             </div>
+
             <div class="row mb-2">
                 <label for="userEmail" class="col-form-label">Emailadresse</label>
                 <div>
                     <input type="email" class="form-control" id="userEmail" name="userEmail">
                 </div>
             </div>
+
             <div class="row mb-3">
                 <label for="userPW" class="col-form-label">Adgangskode</label>
                 <div>
                     <input type="text" class="form-control" id="userPW" name="userPW">
                 </div>
             </div>
+
             <div class="row mb-3">
                 <label for="confirmedPW" class="col-form-label">Skriv adgangskoden igen</label>
                 <div>
                     <input type="text" class="form-control" id="confirmedPW" name="confirmedPW">
                 </div>
             </div>
+
+            <?php if (!empty($errorPW)) : ?>
+                <div class="alert alert-danger"><?php echo $errorPW; ?></div>
+            <?php endif; ?>
+
             <div class="row text-center">
                 <div class="col mt-2 mb-4">
                     <input type="submit" value="Opret konto" class="btn btn-primary">
                 </div>
             </div>
+
         </form>
     </div>
 
