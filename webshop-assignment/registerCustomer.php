@@ -1,6 +1,7 @@
 <?php
 
 require_once "db.php";
+include "includes/head.php";
 /*
  * The following Condition checks whether a client requested the registerCustomer.php through
  * the POST method with the userName, userEmail and userPW
@@ -34,3 +35,16 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
     }
     exit;
 endif;
+?>
+
+<p>Hej</p>
+
+<form action="registerCustomer.php" method="post">
+    <label>Brugernavn:</label><br>
+    <input type="text" name="userName"><br>
+    <label>E-mailadresse:</label><br>
+    <input type="email" name="userEmail"><br>
+    <label>Adgangskode:</label><br>
+    <input type="password" name="userPW"><br>
+    <input type="submit" value="Opret">
+</form>

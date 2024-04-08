@@ -3,36 +3,24 @@
 require_once "user/admin.php";
 require_once "user/customer.php";
 
+include "includes/head.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="da">
-<head>
-    <meta charset="utf-8">
-
-    <title>Login</title>
-
-    <meta name="robots" content="All">
-    <meta name="author" content="Udgiver">
-    <meta name="copyright" content="Information om copyright">
-
-    <!--
-    <link href="css/styles.css" rel="stylesheet" type="text/css">
-    -->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-
 <form action="login.php" method="post">
+    <label for="userName">Brugernavn:</label>
+    <br>
     <input type="text" name="userName">
+    <br>
+    <label for="userPW">Adgangskode:</label>
+    <br>
     <input type="text" name="userPW">
+    <br>
     <input type="submit" value="login">
 </form>
 
 <p>Ny bruger?</p>
-<a href="register.php">Registrer dig her</a>
+<a href="registerCustomer.php">Registrer dig her</a>
 
-</body>
-</html>
+<?php
+include "includes/footer.php";
+?>

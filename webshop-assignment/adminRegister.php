@@ -1,6 +1,6 @@
 <?php
 
-require_once "db.php";
+include "includes/head.php";
 /*
  * The following Condition checks whether a client requested the registerCustomer.php through
  * the POST method with the userName, userEmail and userPW
@@ -29,7 +29,7 @@ if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POS
         if ($stmt->rowCount() > 0) {
             echo 'Produkt tilføjet'. '<br><br>' . '<a href="./adminRegister.php">Registrer flere</a>';
         } else {
-            echo "Der skete en fejl." . '<br><br>' . '<a href="./register.php">Prøv igen</a>';
+            echo "Der skete en fejl." . '<br><br>' . '<a href="./adminRegister.php">Prøv igen</a>';
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
@@ -51,3 +51,6 @@ endif;
     <input type="text" name="productType"><br>
     <input type="submit" value="Opret">
 </form>
+<?php
+include "includes/footer.php";
+?>
