@@ -17,14 +17,20 @@ if ($result) {
     if ($result['userName'] == $userName && $result['userPW'] == $userPW){
         $_SESSION['userName'] = $userName;
         $_SESSION['status'] = true;
-        /*echo "Succes";
-        header('location: products.php');*/
-        echo "Welcome " . $_POST["userName"];
+
+        echo "Velkommen " . $_POST["userName"];
+
+        $userRole = $result['userRole'];
+
+        if($userRole == 1) {
+            echo '<br><a href="adminRegister.php">Gå til admin-siden</a>';
+        } else {
+            echo '<br><a href="products.php">Gå til produktsiden</a>';
+        }
     }
 } else {
     $_SESSION['status'] = false;
     echo "Fejl";
-    /*header('location: products.php');*/
 }
 
 //var_dump($query);
