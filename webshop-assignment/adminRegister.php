@@ -1,5 +1,6 @@
 <?php
 
+require_once "db.php";
 include "includes/head.php";
 /*
  * The following Condition checks whether a client requested the registerCustomer.php through
@@ -8,6 +9,8 @@ include "includes/head.php";
  * userName, userEmail and userPW - You can also see these in the HTML Form (index.html) -
  * These are keys to access the actual data provided by a user.
  */
+
+$productMessage = "";
 
 if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POST['productBrand']) && isset($_POST['productPrice'])) :
 
@@ -18,39 +21,121 @@ if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POS
     $productPrice = $_POST['productPrice'];
     $productType = $_POST['productType'];
 
-    # SQL query for Inserting the Form Data into the users table.
     $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`) VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType')";
 
-    try {
-        $stmt = $handler->prepare($sql);
-        $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType]);
+    $stmt = $handler->prepare($sql);
+    $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType]);
 
-        # Tjekker om forespørgslen blev udført korrekt
-        if ($stmt->rowCount() > 0) {
-            echo 'Produkt tilføjet'. '<br><br>' . '<a href="./adminRegister.php">Registrer flere</a>';
-        } else {
-            echo "Der skete en fejl." . '<br><br>' . '<a href="./adminRegister.php">Prøv igen</a>';
+    if($stmt->rowCount() > 0){
+        $productMessage = 'Produktet er nu tilføjet';
+    } else {
+
+        # SQL query for Inserting the Form Data into the users table.
+        /*$sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`) VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType')";*/
+
+        try {
+            /*$stmt = $handler->prepare($sql);
+            $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType]);
+            */
+            # Tjekker om forespørgslen blev udført korrekt
+            if ($stmt->rowCount() > 0) {
+                echo 'okay';
+                /*$productMessage = 'Produktet er nu tilføjet';*/
+            } else {
+                echo 'ikke okay';
+                /*$productMessage = "Der skete en fejl." . '<br>' . "Prøv igen.";*/
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
         }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
+        exit;
     }
-    exit;
 endif;
 ?>
 
-<form action="adminRegister.php" method="post">
+<!--<form action="adminRegister.php" method="post">
+
     <label>Produktnavn:</label><br>
     <input type="text" name="productName"><br>
+
     <label>Produktets pris:</label><br>
     <input type="number" name="productPrice"><br>
+
     <label>Produktets farve:</label><br>
     <input type="text" name="productColor"><br>
+
     <label>Tøjmærke:</label><br>
     <input type="text" name="productBrand"><br>
+
     <label>Tøjtype:</label><br>
     <input type="text" name="productType"><br>
+
     <input type="submit" value="Opret">
-</form>
+</form>-->
+
+<div class="container mt-5 text-center">
+    <div class="row">
+        <div class="col">
+            <h1>Tilføj produkter</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="card p-3">
+        <form action="adminRegister.php" method="post">
+
+            <?php if (!empty($productMessage)) : ?>
+                <div class="alert alert-info">
+                    <?php echo $productMessage; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="row mb-2">
+                <label for="productName" class="col-form-label">Produktnavn</label>
+                <div>
+                    <input type="text" class="form-control" id="productName" name="productName">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="productPrice" class="col-form-label">Produktets pris</label>
+                <div>
+                    <input type="number" class="form-control" id="productPrice" name="productPrice">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="productColor" class="col-form-label">Produktets farve</label>
+                <div>
+                    <input type="text" class="form-control" id="productColor" name="productColor">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="productBrand" class="col-form-label">Tøjmærke</label>
+                <div>
+                    <input type="text" class="form-control" id="productBrand" name="productBrand">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="productType" class="col-form-label">Produkttype</label>
+                <div>
+                    <input type="text" class="form-control" id="productType" name="productType">
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col mt-2 mb-4">
+                    <input type="submit" value="Opret produktet" class="btn btn-primary">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
 <?php
 include "includes/footer.php";
 ?>
