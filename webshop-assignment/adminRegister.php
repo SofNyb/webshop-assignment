@@ -94,41 +94,49 @@ endif;
             <div class="row mb-2">
                 <label for="productName" class="col-form-label">Produktnavn</label>
                 <div>
-                    <input type="text" class="form-control" id="productName" name="productName">
+                    <input type="text" class="form-control" id="productName" name="productName" required>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label for="productPrice" class="col-form-label">Produktets pris</label>
                 <div>
-                    <input type="number" class="form-control" id="productPrice" name="productPrice">
+                    <input type="number" class="form-control" id="productPrice" name="productPrice" required>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <label for="productColor" class="col-form-label">Produktets farve</label>
                 <div>
-                    <input type="text" class="form-control" id="productColor" name="productColor">
+                    <input type="text" class="form-control" id="productColor" name="productColor" required>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <label for="productBrand" class="col-form-label">Tøjmærke</label>
                 <div>
-                    <input type="text" class="form-control" id="productBrand" name="productBrand">
+                    <input type="text" class="form-control" id="productBrand" name="productBrand" required>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <label for="productType" class="col-form-label">Produkttype</label>
                 <div>
-                    <input type="text" class="form-control" id="productType" name="productType">
+                    <input type="text" class="form-control" id="productType" name="productType" required>
                 </div>
             </div>
 
             <div class="row text-center">
                 <div class="col mt-2 mb-4">
                     <input type="submit" value="Opret produktet" class="btn btn-primary">
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row text-center mt-4 mb-3">
+                <div class="col">
+                    <a class="btn btn-success" href="products.php">Se produkterne</a>
                 </div>
             </div>
 
