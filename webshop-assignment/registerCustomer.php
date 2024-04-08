@@ -25,9 +25,9 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
 
         # Tjekker om forespørgslen blev udført korrekt
         if ($stmt->rowCount() > 0) {
-            echo 'New data inserted successfully. <a href="./index.html">Go Back</a>';
+            echo 'Velkommen til ' . $_POST["userName"] . '<br><br>' . '<a href="./products.php">Gå til produktsiden</a>';
         } else {
-            echo "Failed to insert new data.";
+            echo "Der skete en fejl." . '<br><br>' . '<a href="./register.php">Prøv igen</a>';
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
