@@ -18,12 +18,13 @@ if ($result) {
         $_SESSION['userName'] = $userName;
         $_SESSION['status'] = true;
 
-        echo "Velkommen " . $_POST["userName"];
+        /*echo "Velkommen " . $_POST["userName"];*/
 
         $userRole = $result['userRole'];
 
         if($userRole == 1) {
-            echo '<br><a href="adminRegister.php">Gå til admin-siden</a>';
+            header("location: adminRegister.php");
+            /*echo '<br><a href="adminRegister.php">Gå til admin-siden</a>';*/
         } else {
             echo '<br><a href="products.php">Gå til produktsiden</a>';
         }
