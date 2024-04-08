@@ -16,6 +16,12 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
     $userName = $_POST['userName'];
     $userEmail = $_POST['userEmail'];
     $userPW = $_POST['userPW'];
+    $confirmedPW = $_POST['confirmedPW'];
+
+    if($userPW !== $confirmedPW){
+        echo "Adgangskoderne er ikke ens." . '<br>' . "Prøv venligst igen";
+        exit;
+    }
 
     # SQL query for Inserting the Form Data into the users table.
     $sql = "INSERT INTO `login` (`userName`, `userEmail`, `userPW`) VALUES ('$userName', '$userEmail', '$userPW')";
@@ -36,7 +42,7 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
     exit;
 endif;
 ?>
-
+<!--
 <p>Hej</p>
 
 <form action="registerCustomer.php" method="post">
@@ -47,4 +53,49 @@ endif;
     <label>Adgangskode:</label><br>
     <input type="password" name="userPW"><br>
     <input type="submit" value="Opret">
-</form>
+</form>-->
+
+<div class="container mt-5 text-center">
+    <div class="row">
+        <div class="col">
+            <h1>Opret dit log ind her</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="card p-3">
+        <form action="registerCustomer.php" method="post">
+            <div class="row mb-2">
+                <label for="userName" class="col-form-label">Brugernavn</label>
+                <div>
+                    <input type="text" class="form-control" id="userName" name="userName">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="userEmail" class="col-form-label">Emailadresse</label>
+                <div>
+                    <input type="email" class="form-control" id="userEmail" name="userEmail">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="userPW" class="col-form-label">Adgangskode</label>
+                <div>
+                    <input type="text" class="form-control" id="userPW" name="userPW">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="confirmedPW" class="col-form-label">Skriv adgangskoden igen</label>
+                <div>
+                    <input type="text" class="form-control" id="confirmedPW" name="confirmedPW">
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col mt-2 mb-4">
+                    <input type="submit" value="Opret konto" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
