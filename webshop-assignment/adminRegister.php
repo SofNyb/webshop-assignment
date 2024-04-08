@@ -30,13 +30,8 @@ if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POS
         $productMessage = 'Produktet er nu tilføjet';
     } else {
 
-        # SQL query for Inserting the Form Data into the users table.
-        /*$sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`) VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType')";*/
-
         try {
-            /*$stmt = $handler->prepare($sql);
-            $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType]);
-            */
+
             # Tjekker om forespørgslen blev udført korrekt
             if ($stmt->rowCount() > 0) {
                 echo 'okay';
@@ -52,26 +47,6 @@ if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POS
     }
 endif;
 ?>
-
-<!--<form action="adminRegister.php" method="post">
-
-    <label>Produktnavn:</label><br>
-    <input type="text" name="productName"><br>
-
-    <label>Produktets pris:</label><br>
-    <input type="number" name="productPrice"><br>
-
-    <label>Produktets farve:</label><br>
-    <input type="text" name="productColor"><br>
-
-    <label>Tøjmærke:</label><br>
-    <input type="text" name="productBrand"><br>
-
-    <label>Tøjtype:</label><br>
-    <input type="text" name="productType"><br>
-
-    <input type="submit" value="Opret">
-</form>-->
 
 <div class="container mt-5 text-center">
     <div class="row">
