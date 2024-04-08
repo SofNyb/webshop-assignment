@@ -28,7 +28,7 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
         if ($stmt->rowCount() > 0) {
             echo 'Velkommen til ' . $_POST["userName"] . '<br><br>' . '<a href="./products.php">Gå til produktsiden</a>';
         } else {
-            echo "Der skete en fejl." . '<br><br>' . '<a href="./register.php">Prøv igen</a>';
+            echo "Der skete en fejl." . '<br><br>' . '<a href="./registerCustomer.php">Prøv igen</a>';
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
