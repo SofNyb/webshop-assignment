@@ -4,7 +4,7 @@
 session_start();*/
 
 require_once "db.php";
-require_once "login.php";
+/*require_once "login.php";*/
 
 /*//hvis brugeren er logget ind, kan deres rolle hentes fra sessionen:
 $userRole = isset($_SESSION['userRole']) ? $_SESSION['userRole'] : null;*/
