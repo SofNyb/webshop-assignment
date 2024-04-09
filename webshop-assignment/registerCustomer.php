@@ -16,6 +16,8 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
 
     # Assigning user data to variables for easy access later.
     $userName = $_POST['userName'];
+    $userPhone = $_POST['userPhone'];
+    $userAddress = $_POST['userAddress'];
     $userEmail = $_POST['userEmail'];
     $userPW = $_POST['userPW'];
     $confirmedPW = $_POST['confirmedPW'];
@@ -25,19 +27,19 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
     }else{ //adgangskoderne er ens:
 
         # SQL query for Inserting the Form Data into the users table.
-        $sql = "INSERT INTO `login` (`userName`, `userEmail`, `userPW`) VALUES ('$userName', '$userEmail', '$userPW')";
+        $sql = "INSERT INTO `login` (`userName`, `userPhone`, `userAddress`, `userEmail`, `userPW`) VALUES ('$userName', '$userPhone', '$userAddress', '$userEmail', '$userPW')";
 
         try {
             $stmt = $handler->prepare($sql);
-            $stmt->execute([$userName, $userEmail, $userPW]);
+            $stmt->execute([$userName, $userPhone, $userAddress ,$userEmail, $userPW]);
 
-            # Tjekker om forespørgslen blev udført korrekt
+            /*# Tjekker om forespørgslen blev udført korrekt
             if ($stmt->rowCount() > 0) {
                 echo 'Velkommen til ' . $_POST["userName"] . '<br><br>' . '<a href="./products.php">Gå til produktsiden</a>';
                 exit;
             } else {
                 echo "Der skete en fejl." . '<br><br>' . '<a href="./registerCustomer.php">Prøv igen</a>';
-            }
+            }*/
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
         }
@@ -63,6 +65,20 @@ endif;
                 <label for="userName" class="col-form-label">Brugernavn</label>
                 <div>
                     <input type="text" class="form-control" id="userName" name="userName">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="userPhone" class="col-form-label">Telefonnummer</label>
+                <div>
+                    <input type="text" class="form-control" id="userPhone" name="userPhone">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="userAddress" class="col-form-label">Adresse</label>
+                <div>
+                    <input type="text" class="form-control" id="userAddress" name="userAddress">
                 </div>
             </div>
 
