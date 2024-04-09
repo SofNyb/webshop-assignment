@@ -15,6 +15,27 @@ if(isset($_GET["productID"])) {
         echo "Fejl: " . $e->getMessage();
     }
 
+    if (!empty($_POST)) {
+        $productAmount = $_POST["productAmount"];
+        $productName = $_POST["productName"];
+        $productPicture = $_POST["productPicture"];
+        $productPrice = $_POST["productPrice"];
+
+        try {
+            $sql = "INSERT INTO checkout (productName, productPicture, productPrice, productAmount) VALUES (:productName, :productPicture, :productPrice, :productAmount)";
+            $stmt = $handler->prepare($sql);
+            $stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
+            $stmt->bindParam(':productPicture', $productPicture, PDO::PARAM_STR);
+            $stmt->bindParam(':productPrice', $productPrice, PDO::PARAM_INT);
+            $stmt->bindParam(':productAmount', $productAmount, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch(PDOException $e) {
+            echo "Fejl: " . $e->getMessage();
+        }
+
+        exit;
+    }
+
 }
 
 if(isset($products) && !empty($products)) {
@@ -56,28 +77,28 @@ if(isset($products) && !empty($products)) {
 
                         <div class="form-group mt-3">
                             <form action="product.php?productID=<?php echo $_GET["productID"]; ?>" method="post">
-                                <input type="number" name="data[productAmount]" value="1" min="1" placeholder="Antal" required>
-                                <input type="hidden" name="data[productName]" value="<?php echo $product['productName']; ?>">
-                                <input type="hidden" name="data[productPicture]" value="<?php echo $product['productPicture']; ?>">
-                                <input type="hidden" name="data[productPrice]" value="<?php echo $product['productPrice']; ?>">
+                                <input type="number" name="productAmount" value="1" min="1" placeholder="Antal" required>
+                                <input type="hidden" name="productName" value="<?php echo $product['productName']; ?>">
+                                <input type="hidden" name="productPicture" value="<?php echo $product['productPicture']; ?>">
+                                <input type="hidden" name="productPrice" value="<?php echo $product['productPrice']; ?>">
 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tilføj til kurv</button>
+                                <a class="btn btn-primary" href="checkout.php">Tilføj til kurv</a>
 
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Produkt tilføjet til kurv</h1>
-                                                    <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn text-light btn-success" data-bs-dismiss="modal">
-                                                        Fortsæt
-                                                    </button>
-                                                </div>
+                                <!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Produkt tilføjet til kurv</h1>
+                                                <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn text-light btn-success" data-bs-dismiss="modal">
+                                                    Fortsæt
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
+                                </div>-->
 
                             </form>
                         </div>
