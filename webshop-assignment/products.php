@@ -5,8 +5,6 @@ include "includes/head.php";
 
 $sql = 'SELECT * FROM product';
 
-/*$products = $_GET['SELECT * FROM product'];*/
-
 try {
     // Forbered og udfør forespørgslen
     $stmt = $handler->query($sql);
