@@ -28,42 +28,35 @@ try {
 
 <div class="container mt-5">
     <div class="row">
-
+<?php foreach ($products as $product) : ?>
         <div class="col-sm-6 col-md-4">
-            <?php foreach ($products as $product) : ?>
 
                 <div class="card mb-3">
                     <div class="card-body">
-                            <!--<img src="<?php /*echo $product['productPicture']; */?>" class="card-img-top" alt="<?php /*echo $product['productName']; */?>">-->
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="card-title">
-                                    <?php echo $product['productName']; ?>
-                                </h5>
+                        <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+
+                        <div class="card-text"></div>
+                            <h5 class="card-title">
+                                <?php echo $product['productName']; ?>
+                            </h5>
+                            <p class="card-subtitle text-muted">
+                                <?php echo $product['productPrice']; ?>kr.
+                            </p>
+                            <div class="mt-3">
+                                <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID'] ?>">
+                                    Læs mere
+                                </a>
+                                <a class="btn btn-secondary" href="#">
+                                    Tilføj til kurv
+                                </a>
                             </div>
-                        </div>
-                        <!--<p> - <?php /*echo $product['productType']; */?></p>
-                        <p class="card-text">
-                            <?php /*echo $product['productBrand']; */?>
-                        </p>
-                        <p class="card-text">
-                            <?php /*echo $product['productColor']; */?>
-                        </p>
-                        <p class="card-text">
-                            <?php /*echo $product['productType']; */?>
-                        </p>-->
                     </div>
-                <p>
-                    <a href="product.php?productID=<?php echo $product['productID'] ?>">
-                        Læs mere
-                    </a>
-                </p>
+
                 </div>
 
-
-            <!--</a>-->
-            <?php endforeach; ?>
         </div>
+
+        <?php endforeach; ?>
 
     </div>
 </div>
