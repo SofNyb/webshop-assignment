@@ -2,20 +2,20 @@
 session_start();
 require_once "db.php";
 
-$userName = $_POST['userName'];
+$userEmail = $_POST['userEmail'];
 $userPW = $_POST['userPW'];
 
 // connect to db
 
-$q = $sql = 'SELECT * FROM login WHERE userName = ? AND userPW = ?';
+$q = $sql = 'SELECT * FROM login WHERE userEmail = ? AND userPW = ?';
 $stmt = $handler->prepare($q);
-$stmt->execute([$userName, $userPW]);
+$stmt->execute([$userEmail, $userPW]);
 
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($result) {
-    if ($result['userName'] == $userName && $result['userPW'] == $userPW){
-        $_SESSION['userName'] = $userName;
+    if ($result['userEmail'] == $userEmail && $result['userPW'] == $userPW){
+        $_SESSION['userEmail'] = $userEmail;
         $_SESSION['status'] = true;
 
         /*echo "Velkommen " . $_POST["userName"];*/

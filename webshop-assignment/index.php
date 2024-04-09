@@ -18,9 +18,9 @@ include "includes/head.php";
     <div class="card p-3">
         <form action="login.php" method="post">
             <div class="row mb-2">
-                <label for="userName" class="col-form-label">Brugernavn</label>
+                <label for="userEmail" class="col-form-label">Emailadresse</label>
                 <div>
-                    <input type="text" class="form-control" id="userName" name="userName">
+                    <input type="text" class="form-control" id="userEmail" name="userEmail">
                 </div>
             </div>
             <div class="row mb-3">
