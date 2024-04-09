@@ -11,9 +11,10 @@ if(isset($_GET["productID"])) {
         $stmt = $handler->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch(PDOException $e) {
+
+   /* } catch(PDOException $e) {
         echo "Fejl: " . $e->getMessage();
-    }
+    }*/
 
     if (!empty($_POST)) {
         $productAmount = $_POST["productAmount"];
@@ -22,13 +23,27 @@ if(isset($_GET["productID"])) {
         $productPrice = $_POST["productPrice"];
 
         try {
-            $sql = "INSERT INTO checkout (productName, productPicture, productPrice, productAmount) VALUES (:productName, :productPicture, :productPrice, :productAmount)";
-            $stmt = $handler->prepare($sql);
-            $stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
-            $stmt->bindParam(':productPicture', $productPicture, PDO::PARAM_STR);
-            $stmt->bindParam(':productPrice', $productPrice, PDO::PARAM_INT);
-            $stmt->bindParam(':productAmount', $productAmount, PDO::PARAM_INT);
-            $stmt->execute();
+            $existingProduct = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($existingProduct) {
+                // produktet er allerede i kurven
+                $newAmount = $existingProduct['productAmount'] + $productAmount;
+                $sql = "UPDATE checkout SET productAmount = :productAmount WHERE productID = :productID";
+                $stmt = $handler->prepare($sql);
+                $stmt->bindParam(':productAmount', $newAmount, PDO::PARAM_INT);
+                $stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
+                $stmt->execute();
+            } else {
+                // produktet findes i tabellen allerede
+                $sql = "INSERT INTO checkout (productName, productPicture, productPrice, productAmount) VALUES (:productName, :productPicture, :productPrice, :productAmount)";
+                $stmt = $handler->prepare($sql);
+                $stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
+                $stmt->bindParam(':productPicture', $productPicture, PDO::PARAM_STR);
+                $stmt->bindParam(':productPrice', $productPrice, PDO::PARAM_INT);
+                $stmt->bindParam(':productAmount', $productAmount, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+
         } catch(PDOException $e) {
             echo "Fejl: " . $e->getMessage();
         }
@@ -76,13 +91,13 @@ if(isset($products) && !empty($products)) {
                         </h5>
 
                         <div class="form-group mt-3">
-                            <form action="product.php?productID=<?php echo $_GET["productID"]; ?>" method="post">
+                            <form action="checkout.php" method="post">
                                 <input type="number" name="productAmount" value="1" min="1" placeholder="Antal" required>
                                 <input type="hidden" name="productName" value="<?php echo $product['productName']; ?>">
                                 <input type="hidden" name="productPicture" value="<?php echo $product['productPicture']; ?>">
                                 <input type="hidden" name="productPrice" value="<?php echo $product['productPrice']; ?>">
 
-                                <a class="btn btn-primary" href="checkout.php">Tilføj til kurv</a>
+                                <button class="btn btn-primary" type="submit">Tilføj til kurv</button>
 
                                 <!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
