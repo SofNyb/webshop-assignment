@@ -1,8 +1,5 @@
 <?php
-
-require_once "user/admin.php";
-require_once "user/customer.php";
-
+session_start();
 include "includes/head.php";
 ?>
 
