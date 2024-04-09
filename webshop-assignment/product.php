@@ -3,18 +3,8 @@ session_start();
 require_once "db.php";
 include "includes/head.php";
 
-/*
-$productID = $_GET["productID"];
-$products = $handler->sql("SELECT * FROM product WHERE productID=$productID")
-*/
-
 if(isset($_GET["productID"])) {
     $productID = $_GET["productID"];
-
-    /*$sql = "SELECT * FROM product WHERE productID = '$productID'";
-    $stmt = $handler->prepare($sql);
-    $stmt->execute();
-    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);*/
 
     try {
         $sql = "SELECT * FROM product WHERE productID = '$productID'";
