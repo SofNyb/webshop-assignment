@@ -7,14 +7,14 @@ if(isset($_GET["productID"])) {
     $productID = $_GET["productID"];
 
     try {
+        // henter information fra product-tabel
         $sql = "SELECT * FROM product WHERE productID = '$productID'";
         $stmt = $handler->prepare($sql);
         $stmt->execute();
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-   /* } catch(PDOException $e) {
+    } catch(PDOException $e) {
         echo "Fejl: " . $e->getMessage();
-    }*/
+    }
 
     if (!empty($_POST)) {
         $productAmount = $_POST["productAmount"];
@@ -23,27 +23,13 @@ if(isset($_GET["productID"])) {
         $productPrice = $_POST["productPrice"];
 
         try {
-            $existingProduct = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($existingProduct) {
-                // produktet er allerede i kurven
-                $newAmount = $existingProduct['productAmount'] + $productAmount;
-                $sql = "UPDATE checkout SET productAmount = :productAmount WHERE productID = :productID";
-                $stmt = $handler->prepare($sql);
-                $stmt->bindParam(':productAmount', $newAmount, PDO::PARAM_INT);
-                $stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
-                $stmt->execute();
-            } else {
-                // produktet findes i tabellen allerede
-                $sql = "INSERT INTO checkout (productName, productPicture, productPrice, productAmount) VALUES (:productName, :productPicture, :productPrice, :productAmount)";
-                $stmt = $handler->prepare($sql);
-                $stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
-                $stmt->bindParam(':productPicture', $productPicture, PDO::PARAM_STR);
-                $stmt->bindParam(':productPrice', $productPrice, PDO::PARAM_INT);
-                $stmt->bindParam(':productAmount', $productAmount, PDO::PARAM_INT);
-                $stmt->execute();
-            }
-
+            $sql = "INSERT INTO checkout (productName, productPicture, productPrice, productAmount) VALUES (:productName, :productPicture, :productPrice, :productAmount)";
+            $stmt = $handler->prepare($sql);
+            $stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
+            $stmt->bindParam(':productPicture', $productPicture, PDO::PARAM_STR);
+            $stmt->bindParam(':productPrice', $productPrice, PDO::PARAM_INT);
+            $stmt->bindParam(':productAmount', $productAmount, PDO::PARAM_INT);
+            $stmt->execute();
         } catch(PDOException $e) {
             echo "Fejl: " . $e->getMessage();
         }
