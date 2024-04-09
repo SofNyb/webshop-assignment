@@ -7,7 +7,7 @@ $userPW = $_POST['userPW'];
 
 // connect to db
 
-$q = $sql = 'SELECT * FROM login WHERE userEmail = ? AND userPW = ?';
+$q = $sql = "SELECT * FROM login WHERE userEmail = '$userEmail'; // AND userPW = '$userPW'";
 $stmt = $handler->prepare($q);
 $stmt->execute([$userEmail, $userPW]);
 
@@ -18,13 +18,10 @@ if ($result) {
         $_SESSION['userEmail'] = $userEmail;
         $_SESSION['status'] = true;
 
-        /*echo "Velkommen " . $_POST["userName"];*/
-
         $userRole = $result['userRole'];
 
         if($userRole == 1) {
             header("location: adminRegister.php");
-            /*echo '<br><a href="adminRegister.php">Gå til admin-siden</a>';*/
         } else {
             echo '<br><a href="products.php">Gå til produktsiden</a>';
         }
