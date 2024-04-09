@@ -20,11 +20,12 @@ if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POS
     $productBrand = $_POST['productBrand'];
     $productPrice = $_POST['productPrice'];
     $productType = $_POST['productType'];
+    $productDesc = $_POST['productDesc'];
 
-    $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`) VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType')";
+    $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`) VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType', '$productDesc')";
 
     $stmt = $handler->prepare($sql);
-    $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType]);
+    $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc]);
 
     if($stmt->rowCount() > 0){
         $productMessage = 'Produktet er nu tilføjet';
@@ -98,6 +99,13 @@ endif;
                 <label for="productType" class="col-form-label">Produkttype</label>
                 <div>
                     <input type="text" class="form-control" id="productType" name="productType" required>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="productDesc" class="col-form-label">Produktbeskrivelse</label>
+                <div>
+                    <textarea rows="3" type="text" class="form-control" id="productDesc" name="productDesc" required></textarea>
                 </div>
             </div>
 
