@@ -13,7 +13,7 @@ require_once "db.php";
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="/products.php">Produkter</a>
                 <a class="nav-link active" aria-current="page" href="/profile.php">Profil</a>
-                <a class="nav-link" href="#">Log ud</a>
+                <a class="nav-link" href="/logout.php">Log ud</a>
             </div>
         </div>
     </div>
