@@ -19,8 +19,18 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     }
 }
 
-
-
+//fjerner produkterne fra kurven fra sessionen
+if(isset($_POST['removeProduct'])) {
+    $productIDToRemove = $_POST['removeProduct'];
+    // Find og fjern produktet fra kurven
+    if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+        foreach($_SESSION['cart'] as $key => $product) {
+            if($product === $productIDToRemove) {
+                unset($_SESSION['cart'][$key]);
+            }
+        }
+    }
+}
 
 include "includes/head.php";
 ?>
@@ -54,6 +64,12 @@ include "includes/head.php";
                                             </h5>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card-footer">
+                                    <form action="" method="post">
+                                        <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
+                                        <button type="submit" class="btn btn-danger">Fjern</button>
+                                    </form>
                                 </div>
                             </div>
                         <?php }
