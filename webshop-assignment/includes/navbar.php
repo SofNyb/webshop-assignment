@@ -14,7 +14,12 @@ require_once "db.php";
                 <a class="nav-link active" aria-current="page" href="products.php">Produkter</a>
                 <a class="nav-link active" aria-current="page" href="profile.php">Profil</a>
                 <a class="nav-link active" aria-current="page" href="adminRegister.php">Tilføj produkter</a>
+                <a href="checkout.php" style="color: black;" class="mt-2">
+                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                </a>
             </div>
+
         </div>
+
     </div>
 </nav>
