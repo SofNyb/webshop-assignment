@@ -12,8 +12,9 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
 
 $productMessage = "";
 
-if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POST['productBrand']) && isset($_POST['productPrice'])) :
+/*if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POST['productBrand']) && isset($_POST['productPrice'])) :*/
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     # Assigning user data to variables for easy access later.
     $productName = $_POST['productName'];
     $productColor = $_POST['productColor'];
@@ -22,31 +23,44 @@ if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POS
     $productType = $_POST['productType'];
     $productDesc = $_POST['productDesc'];
 
-    $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`) VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType', '$productDesc')";
+    // fil upload
+    if (isset($_FILES['productPicture']) && $_FILES['productPicture']['error'] === UPLOAD_ERR_OK) {
+        print_r($_FILES['productPicture']);
+        $allowedTypes = ['image/jpeg', 'image/jpg'];
+        $maxFileSize = 5 * 1024 * 1024; // 5 MB
 
-    $stmt = $handler->prepare($sql);
-    $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc]);
+        if (in_array($_FILES['productPicture']['type'], $allowedTypes) && $_FILES['productPicture']['size'] <= $maxFileSize) {
+            // Filen er af tilladt type og størrelse
+            $fileName = $_FILES["productPicture"]["name"];
+            $tempName = $_FILES["productPicture"]["tmp_name"];
+            $folder = "uploads/" . $fileName;
 
-    if($stmt->rowCount() > 0){
-        $productMessage = 'Produktet er nu tilføjet';
-    } else {
+            if (move_uploaded_file($tempName, $folder)) {
+                $productMessage = "Image uploaded successfully";
+                $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`, `productPicture`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try {
+                $stmt = $handler->prepare($sql);
+                $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc, $fileName]);
 
-            # Tjekker om forespørgslen blev udført korrekt
-            if ($stmt->rowCount() > 0) {
-                echo 'okay';
-                /*$productMessage = 'Produktet er nu tilføjet';*/
+                if ($stmt->rowCount() > 0) {
+                    $productMessage = 'Produktet er nu tilføjet';
+                } else {
+                    $productMessage = "Der skete en fejl." . '<br>' . "Prøv igen.";
+                }
             } else {
-                echo 'ikke okay';
-                /*$productMessage = "Der skete en fejl." . '<br>' . "Prøv igen.";*/
+                $productMessage = "Der opstod en fejl under upload af billedet.";
             }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
+        } else {
+            $productMessage = "Den uploadede fil er ikke tilladt eller er for stor.";
         }
-        exit;
+    } else {
+        $productMessage = "Der blev ikke valgt nogen fil, men produktet er nu tilføjet.";
+        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`) VALUES (?, ?, ?, ?, ?, ?)";
+
+        $stmt = $handler->prepare($sql);
+        $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc]);
     }
-endif;
+}
 ?>
 
 <div class="container mt-5 text-center">
@@ -59,7 +73,7 @@ endif;
 
 <div class="container mt-5">
     <div class="card p-3">
-        <form action="adminRegister.php" method="post">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data" method="post">
 
             <?php if (!empty($productMessage)) : ?>
                 <div class="alert alert-info">
@@ -71,6 +85,14 @@ endif;
                 <label for="productName" class="col-form-label">Produktnavn</label>
                 <div>
                     <input type="text" class="form-control" id="productName" name="productName" required>
+                </div>
+            </div>
+
+            <!-- Tilføj produktbilledet -->
+            <div class="row mb-2">
+                <label for="productPicture" class="col-form-label">Produktbillede</label>
+                <div>
+                    <input type="file" class="form-control" id="productPicture" name="productPicture">
                 </div>
             </div>
 
