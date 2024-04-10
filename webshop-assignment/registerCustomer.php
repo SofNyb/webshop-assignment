@@ -3,6 +3,7 @@ session_start();
 require_once "db.php";
 include "includes/head.php";
 
+
 $errorPW = ""; // Initialiser fejlmeddelelse til tom
 
 if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['userPW'])) :
@@ -25,6 +26,17 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
         try {
             $stmt = $handler->prepare($sql);
             $stmt->execute([$userName, $userPhone, $userAddress ,$userEmail, $userPW]);
+
+            // Hent brugeroplysninger fra databasen for at gemme dem i sessionen
+            $sql = "SELECT * FROM `login` WHERE `userEmail` = '$userEmail'";
+            $stmt = $handler->query($sql);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $_SESSION['userEmail'] = $user['userEmail'];
+            $_SESSION['userID'] = $user['userID'];
+            $_SESSION['userRole'] = $user['userRole'];
+
+            header("location: products.php");
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
         }
