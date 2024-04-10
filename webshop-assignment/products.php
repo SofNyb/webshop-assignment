@@ -3,6 +3,26 @@ session_start();
 require_once "db.php";
 include "includes/head.php";
 
+/*&& $_SESSION['role'] == 'administrator'*/
+
+// Kontroller om brugeren er logget ind og er administrator
+if (isset($_SESSION['userRole']) || $_SESSION['userRole'] == '1') {
+    if(isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['productID'])) {
+
+        // Slet produktet fra databasen
+        $productID = $_GET['productID'];
+        $deleteSql = 'DELETE FROM product WHERE productID = :productID';
+        $deleteStmt = $handler->prepare($deleteSql);
+        $deleteStmt->bindParam(':productID', $productID, PDO::PARAM_INT);
+        $deleteStmt->execute();
+        // Omdiriger tilbage til samme side efter sletning
+        header("Location: {$_SERVER['PHP_SELF']}");
+        exit();
+    }
+}
+
+
+
 $sql = 'SELECT productID, productName, productPicture, productPrice FROM product';
 
 try {
@@ -15,7 +35,6 @@ try {
     // Håndtering af databasefejl
     echo "Error: " . $e->getMessage();
 }
-/*<a href="product.php?prodID=<?php /*echo $product['productID'] ?>">*/
 ?>
 
 <div class="container mt-5 text-center">
@@ -46,6 +65,11 @@ try {
                                 <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID'] ?>">
                                     Læs mere
                                 </a>
+                                <?php if (isset($_SESSION['userRole']) && $_SESSION['userRole'] === '1') : ?>
+                                    <a class="btn btn-danger" href="?action=delete&productID=<?php echo $product['productID'] ?>">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                <?php endif; ?>
                             </div>
                     </div>
 
