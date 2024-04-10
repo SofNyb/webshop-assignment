@@ -3,6 +3,24 @@ session_start();
 require_once "db.php";
 include "includes/head.php";
 
+// Check om der er modtaget et produkt-id fra en form eller andet sted
+if(isset($_POST['productID'])) {
+    $productID = $_POST['productID'];
+
+    // Tilføj produkt-id til kurven i sessionen
+    if(!isset($_SESSION['cart'])) {
+        // Hvis kurven ikke findes i sessionen endnu, opret den som et tomt array
+        $_SESSION['cart'] = array();
+    }
+
+    // Tilføj produkt-id til kurven
+    $_SESSION['cart'][] = $productID;
+
+    // Redirect brugeren tilbage til den forrige side eller en anden side efter tilføjelsen
+    /*header("Location: previous_page.php"); // Erstat "previous_page.php" med den ønskede destinations-side
+    exit(); // Sørg for at afslutte scriptet efter omdirigering*/
+}
+
 if(isset($_GET["productID"])) {
     $productID = $_GET["productID"];
 
@@ -131,7 +149,7 @@ if(isset($products) && !empty($products)) {
 }
 
 // Håndtering af indsættelse i checkout-tabellen
-if (!empty($_POST['productID']) && !empty($_POST['productAmount'])) {
+/*if (!empty($_POST['productID']) && !empty($_POST['productAmount'])) {
     $productID = $_POST['productID'];
     $productAmount = $_POST['productAmount'];
 
@@ -147,6 +165,6 @@ if (!empty($_POST['productID']) && !empty($_POST['productAmount'])) {
     } catch(PDOException $e) {
         echo "Fejl: " . $e->getMessage();
     }
-}
+}*/
 
 include "includes/footer.php";
