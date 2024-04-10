@@ -3,10 +3,10 @@ session_start();
 include_once "db.php";
 
     try {
-        $sql = "SELECT * FROM checkout";
+        $sql = "SELECT * FROM checkout ORDER BY checkoutID ASC";
         $stmt = $handler->prepare($sql);
         $stmt->execute();
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $checkouts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         echo "Fejl: " . $e->getMessage();
     }
@@ -22,25 +22,26 @@ include "includes/head.php";
         </div>
 
         <div class="container mt-5">
-
-<?php if(isset($products) && !empty($products)) {
-    foreach ($products as $product) { ?>
+            <div class="row">
+    <div class="col-8">
+<?php if(isset($checkouts) && !empty($checkouts)) {
+    foreach ($checkouts as $checkout) { ?>
 
             <div class="card mb-3">
                 <div class="row g-0">
 
                     <div class="col-md-4">
-                        <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                        <img src="uploads/<?php echo $checkout['checkoutPicture']; ?>" class="card-img-top" alt="<?php echo $checkout['checkoutName']; ?>">
                     </div>
 
                     <div class="col-md-8">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <?php echo $product['productName']; ?>
+                                <?php echo $checkout['checkoutName']; ?>
                             </h4>
 
                             <h5 class="card-text">
-                                <?php echo $product['productPrice']; ?>kr.
+                                <?php echo $checkout['checkoutPrice']; ?>kr.
                             </h5>
 
                         </div>
@@ -48,7 +49,13 @@ include "includes/head.php";
 
                 </div>
             </div>
+
         <?php } ?>
+    </div>
+        <div class="col">
+            <p>Total udregning</p>
+        </div>
+    </div>
         </div>
 
 <?php
