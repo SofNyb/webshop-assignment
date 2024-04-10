@@ -46,9 +46,6 @@ try {
                                 <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID'] ?>">
                                     Læs mere
                                 </a>
-                                <a class="btn btn-secondary" href="#">
-                                    Tilføj til kurv
-                                </a>
                             </div>
                     </div>
 
