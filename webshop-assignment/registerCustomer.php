@@ -2,13 +2,6 @@
 session_start();
 require_once "db.php";
 include "includes/head.php";
-/*
- * The following Condition checks whether a client requested the registerCustomer.php through
- * the POST method with the userName, userEmail and userPW
- *
- * userName, userEmail and userPW - You can also see these in the HTML Form (index.html) -
- * These are keys to access the actual data provided by a user.
- */
 
 $errorPW = ""; // Initialiser fejlmeddelelse til tom
 
@@ -24,22 +17,14 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
 
     if($userPW !== $confirmedPW){
         $errorPW = "Adgangskoderne er ikke ens." . '<br>' . "Prøv venligst igen";
-    }else{ //adgangskoderne er ens:
-
+    }else{
+        //adgangskoderne er ens:
         # SQL query for Inserting the Form Data into the users table.
         $sql = "INSERT INTO `login` (`userName`, `userPhone`, `userAddress`, `userEmail`, `userPW`) VALUES ('$userName', '$userPhone', '$userAddress', '$userEmail', '$userPW')";
 
         try {
             $stmt = $handler->prepare($sql);
             $stmt->execute([$userName, $userPhone, $userAddress ,$userEmail, $userPW]);
-
-            /*# Tjekker om forespørgslen blev udført korrekt
-            if ($stmt->rowCount() > 0) {
-                echo 'Velkommen til ' . $_POST["userName"] . '<br><br>' . '<a href="./products.php">Gå til produktsiden</a>';
-                exit;
-            } else {
-                echo "Der skete en fejl." . '<br><br>' . '<a href="./registerCustomer.php">Prøv igen</a>';
-            }*/
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage(); // Håndtering af databasefejl
         }
