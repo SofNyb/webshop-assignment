@@ -2,13 +2,13 @@
 session_start();
 require_once "db.php";
 include "includes/head.php";
-/*
- * The following Condition checks whether a client requested the registerCustomer.php through
- * the POST method with the userName, userEmail and userPW
- *
- * userName, userEmail and userPW - You can also see these in the HTML Form (index.html) -
- * These are keys to access the actual data provided by a user.
- */
+
+// Kontroller om brugeren er logget ind og har en rolle, før tjek for administratorrolle
+if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
+    //hvis userRole ikke er 1, kan de ikke få adgang, og får vist fejlbesked
+    echo "Hej!" . '<br>' . "Du er på vej ind et sted, hvor du ikke har adgang til." . '<br>' . '<a href="' . $_SERVER['HTTP_REFERER'] . '">Tryk her, for at komme tilbage</a>';
+    exit;
+}
 
 $productMessage = "";
 

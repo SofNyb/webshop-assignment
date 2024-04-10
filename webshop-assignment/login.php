@@ -17,13 +17,14 @@ if ($result) {
     if ($result['userEmail'] == $userEmail && $result['userPW'] == $userPW){
         $_SESSION['userEmail'] = $userEmail;
         $_SESSION['status'] = true;
+        $_SESSION['userRole'] = $result['userRole'];
 
-        $userRole = $result['userRole'];
+        /*$userRole = $result['userRole'];*/
 
-        if($userRole == 1) {
+        if($result['userRole'] == 1) {
             header("location: adminRegister.php");
         } else {
-            echo '<br><a href="products.php">Gå til produktsiden</a>';
+            header("location: products.php");
         }
     }
 } else {
