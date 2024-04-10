@@ -11,48 +11,9 @@ include "includes/head.php";
     </div>
 </div>
 
-<div class="container mt-5">
-    <div class="card p-3">
-        <form action="login.php" method="post">
-            <div class="row mb-2">
-                <label for="userEmail" class="col-form-label">Emailadresse</label>
-                <div>
-                    <input type="text" class="form-control" id="userEmail" name="userEmail">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="userPW" class="col-form-label">Adgangskode</label>
-                <div>
-                    <input type="password" class="form-control" id="userPW" name="userPW">
-                    <input type="checkbox" onclick="myFunction()"> Vis adgangskoden
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col mt-2 mb-4">
-                    <input type="submit" value="Log ind" class="btn btn-primary">
-                </div>
-            </div>
-        </form>
-        <hr>
-        <div class="row text-center mt-4 mb-3">
-            <div class="col">
-                <a class="btn btn-success" href="registerCustomer.php">Opret ny konto</a>
-            </div>
-        </div>
-    </div>
+<a href="login.php">log ind</a>
 
-</div>
 
-<script>
-    function myFunction() {
-        var x = document.getElementById("userPW");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
-</script>
 <?php
 include "includes/footer.php";
 ?>
