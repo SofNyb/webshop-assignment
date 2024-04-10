@@ -12,9 +12,64 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
 
 $productMessage = "";
 
+// check if the user has clicked the button "UPLOAD"
+
+if (isset($_POST['Opret'])) {
+    $productName = $_POST['productName'];
+    $productColor = $_POST['productColor'];
+    $productBrand = $_POST['productBrand'];
+    $productPrice = $_POST['productPrice'];
+    $productType = $_POST['productType'];
+    $productDesc = $_POST['productDesc'];
+
+    $productPicture = $_FILES["productPicture"]["name"];
+    $tempName = $_FILES["productPicture"]["tmp_name"];
+    $folder = "uploads/".$productPicture;
+
+        // query to insert the submitted data
+        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`, `productPicture`)
+                VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType', '$productDesc', '$productPicture')";
+
+        $stmt = $handler->prepare($sql);
+        $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc, $productPicture]);
+
+        // Add the image to the "uploads" folder"
+
+        if (move_uploaded_file($tempName, $folder)) {
+
+            $productMessage = "Image uploaded successfully";
+
+        }else{
+            /*$lastError = error_get_last();
+            if ($lastError !== null && isset($lastError['message'])) {
+                print_r($lastError);
+                $errorMessage = $lastError['message'];*/
+
+
+            $productMessage = "Failed to upload image";
+            /*} else {
+                // Hvis der ikke er nogen specifik fejlmeddelelse, kan du give en generel besked
+                $productMessage = "Der opstod en ukendt fejl under flytning af filen.";
+
+            }*/
+
+    }
+
+    if (is_uploaded_file($tempName)) {
+        if (move_uploaded_file($tempName, $folder)) {
+            $productMessage = "Image uploaded successfully";
+        } else {
+            $productMessage = "Failed to upload image";
+        }
+    } else {
+        $productMessage = "File not uploaded correctly";
+    }
+
+}
+
 /*if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POST['productBrand']) && isset($_POST['productPrice'])) :*/
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
     # Assigning user data to variables for easy access later.
     $productName = $_POST['productName'];
     $productColor = $_POST['productColor'];
@@ -60,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $handler->prepare($sql);
         $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc]);
     }
-}
+}*/
 ?>
 
 <div class="container mt-5 text-center">
@@ -133,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="row text-center">
                 <div class="col mt-2 mb-4">
-                    <input type="submit" value="Opret produktet" class="btn btn-primary">
+                    <input type="submit" value="Opret produktet" class="btn btn-primary" name="Opret">
                 </div>
             </div>
 
