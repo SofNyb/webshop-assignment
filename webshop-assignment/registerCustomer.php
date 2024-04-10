@@ -77,14 +77,16 @@ endif;
             <div class="row mb-3">
                 <label for="userPW" class="col-form-label">Adgangskode</label>
                 <div>
-                    <input type="text" class="form-control" id="userPW" name="userPW">
+                    <input type="password" class="form-control" id="userPW" name="userPW">
+                    <input type="checkbox" onclick="myFunction()"> Vis adgangskoden
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label for="confirmedPW" class="col-form-label">Skriv adgangskoden igen</label>
                 <div>
-                    <input type="text" class="form-control" id="confirmedPW" name="confirmedPW">
+                    <input type="password" class="form-control" id="confirmedPW" name="confirmedPW">
+                    <input type="checkbox" onclick="myConfirmedFunction()"> Vis adgangskoden
                 </div>
             </div>
 
@@ -102,3 +104,22 @@ endif;
     </div>
 
 </div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("userPW");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+    function myConfirmedFunction() {
+        var x = document.getElementById("confirmedPW");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
