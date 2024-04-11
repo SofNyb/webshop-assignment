@@ -26,27 +26,91 @@ if(isset($_SESSION['userID'])) {
 
             <div class="container mt-5">
                 <div class="row">
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col">
                         <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title"><?php echo $user['userName']; ?></h5>
+                            <div class="card-body mx-4">
+                                <div class="row pt-3">
+                                    <div class="col text-center">
+                                        <h4 class="card-title">
+                                            <?php echo $user['userName']; ?></h4>
                                     </div>
                                 </div>
-                                <p>- <?php echo $user['userPhone']; ?></p>
-                                <p class="card-text"><?php echo $user['userAddress']; ?></p>
-                                <p class="card-text"><?php echo $user['userEmail']; ?></p>
-                                <p class="card-text"><?php echo $user['userPW']; ?></p>
+                                <hr>
+                                <div class="row py-2">
+                                    <div class="col-3">
+                                        <p class="card-text">Telefonnummer:</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text"><?php echo $user['userPhone']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row py-2">
+                                    <div class="col-3">
+                                        <p class="card-text">Email:</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text"><?php echo $user['userEmail']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row py-2">
+                                    <div class="col-3">
+                                        <p class="card-text">Edresse:</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text"><?php echo $user['userAddress']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row py-2">
+                                    <div class="col-3">
+                                        <p class="card-text adgangskode">
+                                            Din kode: <input type="checkbox" onclick="myFunction()">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </p>
+
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <input type="password"
+                                                   style="border: none; outline: none;"
+                                                   id="userPW"
+                                                   name="userPW"
+                                                   value="<?php echo $user['userPW']; ?>" readonly>
+
+                                        </p>
+
+                                    </div>
+                                    <div class="col text-end">
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <form action="logout.php" method="post">
-                <button class="btn nav-link" type="submit">Log ud</button>
-            </form>
+            <div class="container text-center">
+                <div class="row mt-5">
+                    <div class="col">
+                        <form action="logout.php" method="post">
+                            <input class="btn btn-danger" type="submit" value="Log ud">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <script>
+                function myFunction() {
+                    var x = document.getElementById("userPW");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+            </script>
 <?php
         } else {
             echo "Fejl: Bruger ikke fundet";
