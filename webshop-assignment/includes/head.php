@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Webshop</title>
+    <title>Heart and Home</title>
 
     <meta name="robots" content="All">
     <meta name="author" content="Udgiver">
