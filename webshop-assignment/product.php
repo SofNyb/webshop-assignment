@@ -96,9 +96,10 @@ if(isset($products) && !empty($products)) {
                             <?php echo $product['productDesc']; ?>
                         </p>
 
-                        <h5 class="card-text">
+                        <h4 class="card-text my-5">
+                            Pris:
                             <?php echo $product['productPrice']; ?>kr.
-                        </h5>
+                        </h4>
 
                         <div class="mt-3">
                             <form action="product.php?productID=<?php echo $product['productID'] ?>" method="post">
