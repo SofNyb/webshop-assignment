@@ -25,7 +25,8 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
                     </div>
                 </div>
             </div>
-        </div>';
+        </div>'
+        . '<br>' . include "includes/footer.php";
     exit;
 }
 
