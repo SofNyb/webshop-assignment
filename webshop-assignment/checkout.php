@@ -94,23 +94,20 @@ if (isset($_POST['betaling'])) {
                                         <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                <?php echo $product['productName']; ?>
-                                            </h4>
-                                            <h5 class="card-text">
-                                                <?php echo $product['productPrice']; ?>kr.
-                                            </h5>
-                                        </div>
+                                        <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $product['productID'] ?>">
+                                            <div class="card-body">
+                                                <h4 class="card-title">
+                                                    <?php echo $product['productName']; ?>
+                                                </h4>
+                                                <h5 class="card-text">
+                                                    <?php echo $product['productPrice']; ?>kr.
+                                                </h5>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
-                                        <div class="col">
-                                            <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID'] ?>">
-                                                Læs mere
-                                            </a>
-                                        </div>
                                         <div class="col text-end">
                                             <form action="" method="post">
                                                 <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
