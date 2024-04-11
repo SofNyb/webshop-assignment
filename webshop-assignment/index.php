@@ -43,7 +43,7 @@ try {
         <div class="accordion" id="accordion_<?php echo $type['productType']; ?>">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading_<?php echo $type['productType']; ?>">
-                    <button class="accordion-button"
+                    <button class="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapse_<?php echo $type['productType']; ?>"
@@ -94,8 +94,11 @@ try {
         </div>
     <?php endforeach; ?>
 
+    <a href="login.php" class="mt-2 btn btn-success">
+        Log ind
+    </a>
+
 </div>
-<a href="login.php">log ind</a>
 
 
 
