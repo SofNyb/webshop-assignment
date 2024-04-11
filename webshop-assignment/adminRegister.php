@@ -17,7 +17,7 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
                         <h4>Du er på vej ind et sted, hvor du ikke har adgang til.</h4>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col">
                         <h5>
                             <a href="' . $_SERVER['HTTP_REFERER'] . '" class="btn btn-success">Tryk her, for at komme tilbage</a>
