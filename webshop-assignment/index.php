@@ -27,8 +27,10 @@ try {
         </div>
     </div>
     <div class="row">
-        <div class="col">
-            <h5>Skriv en tekst her</h5>
+        <div class="col mt-3">
+            <a href="login.php" class="btn btn-success">
+                Log ind
+            </a>
         </div>
     </div>
 </div>
@@ -36,7 +38,7 @@ try {
     <!-- indhold -->
 <div class="container">
 
-    <p>Kategorier</p>
+    <h4>Kategorier</h4>
 
     <!-- accordion som bliver filtreret ud fra type -->
     <?php foreach ($types as $type) : ?>
@@ -74,7 +76,7 @@ try {
                                                 <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
                                             </div>
                                             <div class="col">
-                                                <h5><?php echo $product['productName']; ?></h5>
+                                                <strong><?php echo $product['productName']; ?></strong>
                                             </div>
                                             <div class="col">
                                                 <p class="text-muted"><?php echo $product['productPrice']; ?>kr.</p>
@@ -94,13 +96,15 @@ try {
         </div>
     <?php endforeach; ?>
 
-    <a href="login.php" class="mt-2 btn btn-success">
-        Log ind
-    </a>
+
 
 </div>
 
-
+    <!--<div class="container text-center mt-4">
+        <a href="login.php" class="btn btn-success">
+            Log ind
+        </a>
+    </div>-->
 
 <?php
 include "includes/footer.php";
