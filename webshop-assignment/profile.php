@@ -29,6 +29,7 @@ if(isset($_SESSION['userID'])) {
                     <div class="col">
                         <div class="card mb-3">
                             <div class="card-body mx-4">
+
                                 <div class="row pt-3">
                                     <div class="col text-center">
                                         <h4 class="card-title">
@@ -36,53 +37,58 @@ if(isset($_SESSION['userID'])) {
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row py-2">
-                                    <div class="col-3">
-                                        <p class="card-text">Telefonnummer:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="card-text"><?php echo $user['userPhone']; ?></p>
-                                    </div>
-                                </div>
-                                <div class="row py-2">
-                                    <div class="col-3">
-                                        <p class="card-text">Email:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="card-text"><?php echo $user['userEmail']; ?></p>
-                                    </div>
-                                </div>
-                                <div class="row py-2">
-                                    <div class="col-3">
-                                        <p class="card-text">Edresse:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="card-text"><?php echo $user['userAddress']; ?></p>
-                                    </div>
-                                </div>
-                                <div class="row py-2">
-                                    <div class="col-3">
-                                        <p class="card-text adgangskode">
-                                            Din kode: <input type="checkbox" onclick="myFunction()">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </p>
 
+                                <form>
+                                    <div class="row mb-3">
+                                        <label for="userPhone" class="col-sm-2 col-form-label">Telefon</label>
+                                        <div class="col-sm-10">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="userPhone"
+                                                   style="background-color: white; outline: none;"
+                                                   value="<?php echo $user['userPhone']; ?>"
+                                                   readonly>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <p class="card-text">
-                                            <input type="password"
-                                                   style="border: none; outline: none;"
+                                    <div class="row mb-3">
+                                        <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email"
+                                                   class="form-control"
+                                                   id="userEmail"
+                                                   style="background-color: white; outline: none;"
+                                                   value="<?php echo $user['userEmail']; ?>"
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="userAddress" class="col-sm-2 col-form-label">Adresse</label>
+                                        <div class="col-sm-10">
+                                            <input type="email"
+                                                   class="form-control"
+                                                   id="userAddress"
+                                                   style="background-color: white; outline: none;"
+                                                   value="<?php echo $user['userAddress']; ?>"
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="userPW" class="col-sm-2 col-form-label">Kode
+                                            <input type="checkbox" onclick="myFunction()"> <i class="fa-solid fa-eye"></i>
+                                        </label>
+                                        <div class="col-sm-10">
+
+                                            <input type="email"
+                                                   class="form-control"
                                                    id="userPW"
-                                                   name="userPW"
-                                                   value="<?php echo $user['userPW']; ?>" readonly>
+                                                   style="background-color: white; outline: none;"
+                                                   value="<?php echo $user['userPW']; ?>"
+                                                   readonly>
 
-                                        </p>
-
+                                        </div>
                                     </div>
-                                    <div class="col text-end">
 
-                                    </div>
-                                </div>
+                                </form>
 
                             </div>
                         </div>
