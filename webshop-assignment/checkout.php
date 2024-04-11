@@ -105,10 +105,19 @@ if (isset($_POST['betaling'])) {
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <form action="" method="post">
-                                        <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
-                                        <button type="submit" class="btn btn-danger">Fjern</button>
-                                    </form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID'] ?>">
+                                                Læs mere
+                                            </a>
+                                        </div>
+                                        <div class="col text-end">
+                                            <form action="" method="post">
+                                                <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
+                                                <button type="submit" class="btn btn-danger">Fjern</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         <?php }

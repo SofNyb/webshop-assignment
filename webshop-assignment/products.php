@@ -60,14 +60,18 @@ try {
                         <p class="card-subtitle text-muted">
                             <?php echo $product['productPrice']; ?>kr.
                         </p>
-                        <div class="mt-3">
-                            <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID'] ?>">
-                                Læs mere
-                            </a>
-                            <?php if ($is_logged_in && $_SESSION['userRole'] == '1') : ?>
-                                <a class="btn btn-danger" href="?action=delete&productID=<?php echo $product['productID'] ?>">
-                                    <i class="fa-solid fa-trash"></i>
+                        <div class="mt-3 row">
+                            <div class="col">
+                                <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID'] ?>">
+                                    Læs mere
                                 </a>
+                            </div>
+                            <?php if ($is_logged_in && $_SESSION['userRole'] == '1') : ?>
+                                <div class="col text-end">
+                                    <a class="btn btn-danger text-end" href="?action=delete&productID=<?php echo $product['productID'] ?>">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
