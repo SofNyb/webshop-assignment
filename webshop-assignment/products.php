@@ -46,7 +46,7 @@ try {
     </div>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5 pb-5">
     <div class="row">
         <?php foreach ($products as $product) : ?>
             <div class="col-sm-6 col-md-4">
