@@ -114,7 +114,9 @@ if (isset($_POST['betaling'])) {
                                         <div class="col text-end">
                                             <form action="" method="post">
                                                 <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
-                                                <button type="submit" class="btn btn-danger">Fjern</button>
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
