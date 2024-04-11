@@ -152,8 +152,9 @@ if (isset($_POST['Opret'])) {
 
             <div class="row mb-3">
                 <label for="productPrice" class="col-form-label">Produktets pris</label>
-                <div>
+                <div class="input-group">
                     <input type="number" class="form-control" id="productPrice" name="productPrice" required>
+                    <div class="input-group-text">kr.</div>
                 </div>
             </div>
 
