@@ -82,7 +82,7 @@ if (isset($_POST['Opret'])) {
             $productMessage = "Failed to upload image";
         }
     } else {
-        $productMessage = "Fil uploaded";
+        $productMessage = "Produkt blev oprettet";
     }
 
 }
