@@ -6,7 +6,26 @@ include "includes/head.php";
 // Kontroller om brugeren er logget ind og har en rolle, før tjek for administratorrolle
 if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
     //hvis userRole ikke er 1, kan de ikke få adgang, og får vist fejlbesked
-    echo "Hej!" . '<br>' . "Du er på vej ind et sted, hvor du ikke har adgang til." . '<br>' . '<a href="' . $_SERVER['HTTP_REFERER'] . '">Tryk her, for at komme tilbage</a>';
+    echo
+        '<div class="container mt-5 text-center">
+            <div class="row">
+                <div class="col">
+                    <h1>Hej!</h1>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Du er på vej ind et sted, hvor du ikke har adgang til.</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h5>
+                            <a href="' . $_SERVER['HTTP_REFERER'] . '" class="btn btn-success">Tryk her, for at komme tilbage</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>';
     exit;
 }
 
