@@ -3,6 +3,8 @@ session_start();
 require_once "db.php";
 include "includes/head.php";
 
+$loginMessage = "";
+
 if(isset($_POST['userEmail'], $_POST['userPW'])) {
     $userEmail = $_POST['userEmail'];
     $userPW = $_POST['userPW'];
@@ -30,7 +32,7 @@ if(isset($_POST['userEmail'], $_POST['userPW'])) {
         }
     } else {
         $_SESSION['status'] = false;
-        echo "Fejl";
+        $loginMessage = "Hov, der skete en fejl! Prøv at logge ind igen.";
     }
 }
 ?>
@@ -46,6 +48,7 @@ if(isset($_POST['userEmail'], $_POST['userPW'])) {
 <div class="container mt-5">
     <div class="card p-3">
         <form action="login.php" method="post">
+
             <div class="row mb-2">
                 <label for="userEmail" class="col-form-label">Emailadresse</label>
                 <div>
@@ -61,14 +64,21 @@ if(isset($_POST['userEmail'], $_POST['userPW'])) {
             </div>
             <div class="row text-center">
                 <div class="col mt-2 mb-4">
-                    <input type="submit" value="Log ind" class="btn btn-primary">
+                    <input type="submit" value="Log ind" class="btn btn-success">
                 </div>
             </div>
+
+            <?php if (!empty($loginMessage)) : ?>
+                <div class="alert alert-info">
+                    <?php echo $loginMessage; ?>
+                </div>
+            <?php endif; ?>
+
         </form>
         <hr>
         <div class="row text-center mt-4 mb-3">
             <div class="col">
-                <a class="btn btn-success" href="registerCustomer.php">Opret ny konto</a>
+                <a class="btn btn-primary" href="registerCustomer.php">Opret ny konto</a>
             </div>
         </div>
     </div>
