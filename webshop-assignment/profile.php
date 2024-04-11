@@ -72,9 +72,10 @@ if(isset($_SESSION['userID'])) {
                                                    readonly>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <div class="row">
                                         <label for="userPW" class="col-sm-2 col-form-label">Kode
-                                            <input type="checkbox" onclick="myFunction()"> <i class="fa-solid fa-eye"></i>
+                                            <input type="checkbox" onclick="myFunction()">
+                                            <i class="fa-solid fa-eye"></i>
                                         </label>
                                         <div class="col-sm-10">
 
@@ -88,6 +89,16 @@ if(isset($_SESSION['userID'])) {
                                         </div>
                                     </div>
 
+                                    <hr class="my-5">
+
+                                    <div class="row my-3 text-center">
+                                        <div class="col">
+                                            <a class="btn btn-success" href="checkout.php">
+                                                <i class="fa-solid fa-cart-shopping fa-xl"></i> Se din kurv
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </form>
 
                             </div>
@@ -96,7 +107,7 @@ if(isset($_SESSION['userID'])) {
                 </div>
             </div>
 
-            <div class="container text-center">
+            <div class="container mt-5 text-center">
                 <div class="row mt-5">
                     <div class="col">
                         <form action="logout.php" method="post">
