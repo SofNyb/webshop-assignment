@@ -33,7 +33,7 @@ if(isset($_POST['removeProduct'])) {
     }
 }
 
-//tjek om betalingsknap er trykket
+//hvis betalingsknappen bliver trykket
 if (isset($_POST['betaling'])) {
     echo
     '<div class="container mt-5 text-center">
