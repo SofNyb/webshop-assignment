@@ -73,62 +73,58 @@ if (isset($_POST['betaling'])) {
 ?>
     <!--overskrift-->
 <div class="container mt-5 text-center">
-            <div class="row">
-                <div class="col">
-                    <h1>Din kurv</h1>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col">
+            <h1>Din kurv</h1>
         </div>
+    </div>
+</div>
 
     <!--indhold i kurv-->
 <div class="container mt-5">
-            <div class="row">
-                <div class="col-8">
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
 
-                    <?php if(isset($products) && !empty($products)) {
-                        foreach ($products as $product) { ?>
+            <?php if(isset($products) && !empty($products)) {
+                foreach ($products as $product) { ?>
 
-                            <div class="card mb-3">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                            </div>
+                            <div class="col-md-8">
+                                <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $product['productID'] ?>">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <?php echo $product['productName']; ?>
+                                        </h5>
+                                        <p class="card-text">
+                                            <?php echo $product['productPrice']; ?>kr.
+                                        </p>
                                     </div>
-                                    <div class="col-md-8">
-                                        <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $product['productID'] ?>">
-                                            <div class="card-body">
-                                                <h4 class="card-title">
-                                                    <?php echo $product['productName']; ?>
-                                                </h4>
-                                                <h5 class="card-text">
-                                                    <?php echo $product['productPrice']; ?>kr.
-                                                </h5>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col text-end">
-                                            <form action="" method="post">
-                                                <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col text-end">
+                                    <form action="" method="post">
+                                        <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                        <?php }
-                    } ?>
-                </div>
-            </div>
+                        </div>
+                    </div>
+                <?php }
+            } ?>
         </div>
 
-    <!--samlet pris-->
-<div class="container mt-5">
-    <div class="row">
-        <div class="col">
+        <!--samlet pris-->
+        <div class="col mb-5">
             <?php
 
             $totalPrice = 0;
@@ -140,21 +136,25 @@ if (isset($_POST['betaling'])) {
             }
 
             // Den samlede pris er nu gemt i totalPrice:
-            echo '<h5>' . "Den samlede pris for varerne i kurven er: " . '<u>' . $totalPrice . " kr." . '</u>' . '</h5>';
+            echo '
+                <p>Total (inkl. moms)
+                    <hr>
+                    <h4 class="text-end">' . $totalPrice . " kr." .
+                    '</h4>
+                </p>
+                
+                <!--betalingsknap-->
+                <div class="row text-center mt-4 mb-5">
+                        <form action="" enctype="multipart/form-data" method="post">
+                            <input type="submit" value="Gå til betaling" class="btn btn-success" name="betaling">
+                        </form>
+                    </div>
+                </div>
+                ';
             ?>
         </div>
     </div>
-</div>
 
-    <!--betalingsknap-->
-<div class="container">
-    <div class="row text-center mt-4 mb-3">
-        <div class="col">
-            <form action="" enctype="multipart/form-data" method="post">
-                <input type="submit" value="Gå til betaling" class="btn btn-success" name="betaling">
-            </form>
-        </div>
-    </div>
 </div>
 
 <?php
