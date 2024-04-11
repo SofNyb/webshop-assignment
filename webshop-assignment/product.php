@@ -69,8 +69,18 @@ if(isset($_GET["productID"])) {
 
 if(isset($products) && !empty($products)) {
     foreach ($products as $product) { ?>
-
-        <div class="container mt-5 text-center">
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col">
+                    <!-- Tilføj en "Gå tilbage"-knap -->
+                    <a href="javascript:history.go(-1)" class="text-secondary">
+                        <i class="fa-solid fa-reply fa-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+            <!-- overskrift -->
+        <div class="container text-center">
             <div class="row">
                 <div class="col">
                     <h1><?php echo $product['productName']; ?> - <?php echo $product['productBrand']; ?></h1>
@@ -78,7 +88,7 @@ if(isset($products) && !empty($products)) {
             </div>
         </div>
 
-    <div class="container mt-5">
+    <div class="container mt-5 pb-5">
 
         <div class="card mb-3">
             <div class="row g-0">
