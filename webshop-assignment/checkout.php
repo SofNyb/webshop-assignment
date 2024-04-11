@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once "db.php";
+include "includes/head.php";
 
 //udskriver produkterne tilføjet til kurv fra session
 if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
@@ -32,9 +33,46 @@ if(isset($_POST['removeProduct'])) {
     }
 }
 
-include "includes/head.php";
+//tjek om betalingsknap er trykket
+if (isset($_POST['betaling'])) {
+    echo
+    '<div class="container mt-5 text-center">
+            <div class="row">
+                <div class="col">
+                    <h1>Hej!</h1>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Denne del af siden er stadig under udvikling.</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h5>Derfor kan du desværre ikke foretage dit køb endnu.</h5>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col">
+                        <h5>Tusinde tak for din støtte og forståelse!</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>
+                            <a href="' . $_SERVER['HTTP_REFERER'] . '" class="btn btn-success">
+                            Tryk her, for at komme tilbage</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>';
+    include "includes/footer.php";
+    exit;
+}
+
 ?>
-        <div class="container mt-5 text-center">
+    <!--overskrift-->
+<div class="container mt-5 text-center">
             <div class="row">
                 <div class="col">
                     <h1>Din kurv</h1>
@@ -42,7 +80,8 @@ include "includes/head.php";
             </div>
         </div>
 
-        <div class="container mt-5">
+    <!--indhold i kurv-->
+<div class="container mt-5">
             <div class="row">
                 <div class="col-8">
 
@@ -78,24 +117,34 @@ include "includes/head.php";
             </div>
         </div>
 
+    <!--samlet pris-->
 <div class="container mt-5">
     <div class="row">
         <div class="col">
-            <div class="col">
-                <?php
+            <?php
 
-                $totalPrice = 0;
+            $totalPrice = 0;
 
-                if (isset($products) && !empty($products)) {
-                    foreach ($products as $product) {
-                        $totalPrice += $product['productPrice'];
-                    }
+            if (isset($products) && !empty($products)) {
+                foreach ($products as $product) {
+                    $totalPrice += $product['productPrice'];
                 }
+            }
 
-                // Den samlede pris er nu gemt i totalPrice:
-                echo '<h5>' . "Den samlede pris for varerne i kurven er: " . '<u>' . $totalPrice . " kr." . '</u>' . '</h5>';
-                ?>
-            </div>
+            // Den samlede pris er nu gemt i totalPrice:
+            echo '<h5>' . "Den samlede pris for varerne i kurven er: " . '<u>' . $totalPrice . " kr." . '</u>' . '</h5>';
+            ?>
+        </div>
+    </div>
+</div>
+
+    <!--betalingsknap-->
+<div class="container">
+    <div class="row text-center mt-4 mb-3">
+        <div class="col">
+            <form action="" enctype="multipart/form-data" method="post">
+                <input type="submit" value="Gå til betaling" class="btn btn-success" name="betaling">
+            </form>
         </div>
     </div>
 </div>
