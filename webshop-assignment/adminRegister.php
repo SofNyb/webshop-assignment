@@ -146,8 +146,8 @@ if (isset($_POST['Opret'])) {
     </div>
 </div>
 
-<div class="container mt-5">
-    <div class="card p-3">
+<div class="container mt-5 pb-5">
+    <div class="card p-3 mb-5">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data" method="post">
 
             <?php if (!empty($productMessage)) : ?>
