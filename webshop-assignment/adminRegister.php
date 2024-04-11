@@ -16,7 +16,6 @@ $productMessage = "";
 
 if (isset($_POST['Opret'])) {
     $productName = $_POST['productName'];
-    $productColor = $_POST['productColor'];
     $productBrand = $_POST['productBrand'];
     $productPrice = $_POST['productPrice'];
     $productType = $_POST['productType'];
@@ -27,11 +26,11 @@ if (isset($_POST['Opret'])) {
     $folder = "uploads/".$productPicture;
 
         // query to insert the submitted data
-        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`, `productPicture`)
-                VALUES ('$productName', '$productPrice', '$productColor', '$productBrand', '$productType', '$productDesc', '$productPicture')";
+        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productBrand`, `productType`, `productDesc`, `productPicture`)
+                VALUES ('$productName', '$productPrice', '$productBrand', '$productType', '$productDesc', '$productPicture')";
 
         $stmt = $handler->prepare($sql);
-        $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc, $productPicture]);
+        $stmt->execute([$productName, $productPrice, $productBrand, $productType, $productDesc, $productPicture]);
 
         // Add the image to the "uploads" folder"
 
@@ -62,7 +61,7 @@ if (isset($_POST['Opret'])) {
             $productMessage = "Failed to upload image";
         }
     } else {
-        $productMessage = "File not uploaded correctly";
+        $productMessage = "Fil uploaded";
     }
 
 }
@@ -159,14 +158,7 @@ if (isset($_POST['Opret'])) {
             </div>
 
             <div class="row mb-2">
-                <label for="productColor" class="col-form-label">Produktets farve</label>
-                <div>
-                    <input type="text" class="form-control" id="productColor" name="productColor" required>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <label for="productBrand" class="col-form-label">Tøjmærke</label>
+                <label for="productBrand" class="col-form-label">Mærke</label>
                 <div>
                     <input type="text" class="form-control" id="productBrand" name="productBrand" required>
                 </div>

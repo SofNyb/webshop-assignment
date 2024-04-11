@@ -95,10 +95,6 @@ if(isset($products) && !empty($products)) {
                         <p class="card-text text-muted">
                             <?php echo $product['productDesc']; ?>
                         </p>
-                        <p class="card-text">
-                            <strong class="text-muted">Farve:</strong>
-                            <?php echo $product['productColor']; ?>
-                        </p>
 
                         <h5 class="card-text">
                             <?php echo $product['productPrice']; ?>kr.

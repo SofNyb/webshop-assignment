@@ -20,7 +20,6 @@ if (isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['use
         $errorPW = "Adgangskoderne er ikke ens." . '<br>' . "Prøv venligst igen";
     }else{
         //adgangskoderne er ens:
-        # SQL query for Inserting the Form Data into the users table.
         $sql = "INSERT INTO `login` (`userName`, `userPhone`, `userAddress`, `userEmail`, `userPW`) VALUES ('$userName', '$userPhone', '$userAddress', '$userEmail', '$userPW')";
 
         try {
