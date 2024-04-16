@@ -120,6 +120,11 @@ if (isset($_POST['betaling'])) {
                         </div>
                     </div>
                 <?php }
+            } else {
+                echo '<div class="text-center mt-5">
+                        <h5>Du har ikke noget i din kurv</h5>
+                        <a href="products.php" class="btn btn-primary">Tryk her, for at komme til produktoversigten</a>
+                    </div>';
             } ?>
         </div>
 
