@@ -10,9 +10,8 @@ if(isset($_POST['userEmail'], $_POST['userPW'])) {
     $userPW = $_POST['userPW'];
 
     // connect to db
-
-    $q = $sql = "SELECT * FROM login WHERE userEmail = '$userEmail'; // AND userPW = '$userPW'";
-    $stmt = $handler->prepare($q);
+    $sql = "SELECT * FROM login WHERE userEmail = ? AND userPW = ?";
+    $stmt = $handler->prepare($sql);
     $stmt->execute([$userEmail, $userPW]);
 
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
