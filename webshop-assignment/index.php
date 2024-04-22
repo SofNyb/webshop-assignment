@@ -3,6 +3,12 @@ session_start();
 require_once "db.php";
 include "includes/head.php";
 
+// Kontroller om brugeren er logget ind
+if (isset($_SESSION['userID'])) {
+    $is_not_logged_in = false;
+} else {
+    $is_not_logged_in = true;
+}
 
 try {
     // henter typerne fra db
@@ -26,17 +32,19 @@ try {
             <h1>Velkommen til Heart and Home!</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col mt-3">
-            <a href="login.php" class="btn btn-success">
-                Log ind
-            </a>
+    <?php if ($is_not_logged_in) : ?>
+        <div class="row">
+            <div class="col mt-3">
+                <a href="login.php" class="btn btn-success">
+                    Log ind
+                </a>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 </div>
 
     <!-- indhold -->
-<div class="container">
+<div class="container mt-5">
 
     <h4>Kategorier</h4>
 
