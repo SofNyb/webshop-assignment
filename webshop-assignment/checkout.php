@@ -32,6 +32,11 @@ if(isset($_POST['removeProduct'])) {
         }
     }
 }
+// Hvis et produkt skal fjernes fra kurven, bliver siden automatisk genindlæst
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['removeProduct'])) {
+    header("Location: " . $_SERVER['REQUEST_URI']); // Omdiriger til den samme side
+    exit(); // Stop yderligere udførelse af PHP-kode
+}
 
 //hvis betalingsknappen bliver trykket
 if (isset($_POST['betaling'])) {
