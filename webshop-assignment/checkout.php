@@ -89,12 +89,22 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 //fjerner produkterne fra kurven fra sessionen
 if(isset($_POST['removeProduct'])) {
     $productIDToRemove = $_POST['removeProduct'];
-    // Find og fjern produktet fra kurven
+    $productAmountToRemove = $_POST['productAmount'];
+    // Find og fjern det valgte antal af produktet fra kurven
     if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         foreach($_SESSION['cart'] as $key => $product) {
-            // Sammenlign produktID i stedet for hele produktet
             if($product['productID'] == $productIDToRemove) {
-                unset($_SESSION['cart'][$key]);
+                // Hvis det valgte antal er mindre end eller lig med det antal i kurven, fjern fra kurven
+                if($productAmountToRemove <= $product['productAmount']) {
+                    $_SESSION['cart'][$key]['productAmount'] -= $productAmountToRemove;
+                    // Hvis antallet bliver 0, fjern produktet helt fra kurven
+                    if($_SESSION['cart'][$key]['productAmount'] == 0) {
+                        unset($_SESSION['cart'][$key]);
+                    }
+                } else {
+                    // Hvis det valgte antal er større end antallet i kurven, fjern produktet helt fra kurven
+                    unset($_SESSION['cart'][$key]);
+                }
                 break; // Stop løkken, når produktet er fjernet
             }
         }
@@ -188,6 +198,7 @@ if (isset($_POST['betaling'])) {
                                 <div class="col text-end">
                                     <form action="" method="post">
                                         <input type="hidden" name="removeProduct" value="<?php echo $productID; ?>">
+                                        <input type="number" name="productAmount" value="1" min="1" placeholder="Antal" required>
                                         <button type="submit" class="btn btn-danger">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
