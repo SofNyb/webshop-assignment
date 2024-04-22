@@ -7,14 +7,80 @@ include "includes/head.php";
 if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $checkouts = $_SESSION['cart'];
 
-    try {
-        // Der skal en streng med produktID til at håndtere SQL IN-operator
-        $allProducts = implode(",", $checkouts);
 
-        $sql = "SELECT * FROM product WHERE productID IN ($allProducts)";
+    // Opret et tomt array til at holde styr på produktID'er og deres tilsvarende antal
+    $cartItems = [];
+
+    // Gennemgå hvert element i $checkouts
+    foreach ($checkouts as $item) {
+        // Hvis elementet er et array og har 'productID' indekset
+        if (is_array($item) && isset($item['productID'])) {
+            // Hvis produktID allerede er i $cartItems arrayet, så tilføj blot antallet
+            if (isset($cartItems[$item['productID']])) {
+                $cartItems[$item['productID']]['productAmount'] += $item['productAmount'];
+            } else {
+                // Ellers tilføj det til $cartItems arrayet med antallet
+                $cartItems[$item['productID']] = $item;
+            }
+        }
+    }
+
+    /* Her bliver productAmount sendt korrekt over
+     * // Opret et array til at gemme produktID'er og deres tilsvarende antal
+    $productInfo = [];
+
+    // Gennemgå hvert element i $checkouts
+    foreach ($checkouts as $item) {
+        // Hvis elementet er et array og har 'productID' indekset
+        if (is_array($item) && isset($item['productID'])) {
+            // Opret et unikt nøgle for hvert produktID
+            $productKey = $item['productID'];
+
+            // Tilføj produktID og tilhørende antal til $productInfo array
+            if (!isset($productInfo[$productKey])) {
+                $productInfo[$productKey] = 0;
+            }
+            $productInfo[$productKey] += $item['productAmount'];
+        }
+    }
+
+    // Opret et array til at gemme produktID'er
+    $productIDs = [];
+
+    // Gennemgå produktInfo array for at oprette placeholders og hente produktID'er
+    foreach ($productInfo as $productID => $productAmount) {
+
+        // Tilføj produktID til $productIDs array
+        $productIDs[] = $productID;
+    }*/
+
+    try {
+        // Opret et array til at holde produktID'er
+        $productIDs = [];
+
+        // Gennemgå de konsoliderede produkter i kurven for at hente produktID'er
+        foreach ($cartItems as $cartItem) {
+            // Tilføj produktID til $productIDs array
+            $productIDs[] = $cartItem['productID'];
+        }
+        // Der skal en streng med produktID til at håndtere SQL IN-operator
+        $allProducts = implode(",", $productIDs);
+
+        $sql = "SELECT productID, productName, productPrice, productPicture FROM product WHERE productID IN ($allProducts)";
         $stmt = $handler->prepare($sql);
         $stmt->execute();
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Opret $cartItems arrayet med nødvendige oplysninger
+        foreach ($productsData as $productData) {
+            $cartItems[$productData['productID']] = [
+                'productID' => $productData['productID'],
+                'productName' => $productData['productName'],
+                'productPrice' => $productData['productPrice'],
+                'productPicture' => $productData['productPicture'],
+                'productAmount' => $cartItems[$productData['productID']]['productAmount'] // Bevarer produktantal fra tidligere
+            ];
+        }
     } catch(PDOException $e) {
         echo "Fejl: " . $e->getMessage();
     }
@@ -26,12 +92,15 @@ if(isset($_POST['removeProduct'])) {
     // Find og fjern produktet fra kurven
     if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         foreach($_SESSION['cart'] as $key => $product) {
-            if($product === $productIDToRemove) {
+            // Sammenlign produktID i stedet for hele produktet
+            if($product['productID'] == $productIDToRemove) {
                 unset($_SESSION['cart'][$key]);
+                break; // Stop løkken, når produktet er fjernet
             }
         }
     }
 }
+
 // Hvis et produkt skal fjernes fra kurven, bliver siden automatisk genindlæst
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['removeProduct'])) {
     header("Location: " . $_SERVER['REQUEST_URI']); // Omdiriger til den samme side
@@ -90,22 +159,25 @@ if (isset($_POST['betaling'])) {
     <div class="row">
         <div class="col-sm-12 col-md-8">
 
-            <?php if(isset($products) && !empty($products)) {
-                foreach ($products as $product) { ?>
+           <!-- --><?php /*if(isset($products) && !empty($products)) {
+                foreach ($products as $product) { */?>
 
+            <?php if(!empty($cartItems)) {
+                foreach ($cartItems as $productID => $cartItem) {
+            ?>
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                                <img src="uploads/<?php echo $cartItem['productPicture']; ?>" class="card-img-top" alt="<?php echo $cartItem['productName']; ?>">
                             </div>
                             <div class="col-md-8">
-                                <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $product['productID'] ?>">
+                                <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $productID ?>">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <?php echo $product['productName']; ?>
+                                            <?php echo $cartItem['productName']; ?>
                                         </h5>
                                         <p class="card-text">
-                                            <?php echo $product['productPrice']; ?>kr.
+                                            <?php echo $cartItem['productPrice']; ?>kr. x <?php echo $cartItem['productAmount']; ?>
                                         </p>
                                     </div>
                                 </a>
@@ -115,7 +187,7 @@ if (isset($_POST['betaling'])) {
                             <div class="row">
                                 <div class="col text-end">
                                     <form action="" method="post">
-                                        <input type="hidden" name="removeProduct" value="<?php echo $product['productID']; ?>">
+                                        <input type="hidden" name="removeProduct" value="<?php echo $productID; ?>">
                                         <button type="submit" class="btn btn-danger">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
@@ -139,9 +211,9 @@ if (isset($_POST['betaling'])) {
 
             $totalPrice = 0;
 
-            if (isset($products) && !empty($products)) {
-                foreach ($products as $product) {
-                    $totalPrice += $product['productPrice'];
+            if (!empty($cartItems)) {
+                foreach ($cartItems as $cartItem)  {
+                    $totalPrice += $cartItem['productPrice'] * $cartItem['productAmount'];
                 }
             }
 
