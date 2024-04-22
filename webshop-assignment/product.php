@@ -37,7 +37,7 @@ if(isset($products) && !empty($products)) {
             <div class="row">
                 <div class="col">
                     <!-- Tilføj en "Gå tilbage"-knap -->
-                    <a href="javascript:history.go(-1)" class="text-secondary">
+                    <a href="products.php" class="text-secondary">
                         <i class="fa-solid fa-reply fa-xl"></i>
                     </a>
                 </div>
