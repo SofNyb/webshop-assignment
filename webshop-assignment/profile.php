@@ -79,7 +79,7 @@ if(isset($_SESSION['userID'])) {
                                         </label>
                                         <div class="col-sm-10">
 
-                                            <input type="email"
+                                            <input type="password"
                                                    class="form-control"
                                                    id="userPW"
                                                    style="background-color: white; outline: none;"
