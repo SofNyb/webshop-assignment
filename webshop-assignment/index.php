@@ -32,7 +32,7 @@ try {
             <h1>Velkommen til Heart and Home!</h1>
         </div>
     </div>
-    <?php if ($is_not_logged_in) : ?>
+    <?php if ($is_not_logged_in) { ?>
         <div class="row">
             <div class="col mt-3">
                 <a href="login.php" class="btn btn-success">
@@ -40,7 +40,15 @@ try {
                 </a>
             </div>
         </div>
-    <?php endif; ?>
+    <?php } else { ?>
+        <div class="row">
+            <div class="col mt-3">
+                <a href="checkout.php" class="btn btn-success">
+                    Se din kurv
+                </a>
+            </div>
+        </div>
+<?php } ?>
 </div>
 
     <!-- indhold -->
