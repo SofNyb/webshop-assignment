@@ -108,12 +108,6 @@ try {
 
 </div>
 
-    <!--<div class="container text-center mt-4">
-        <a href="login.php" class="btn btn-success">
-            Log ind
-        </a>
-    </div>-->
-
 <?php
 include "includes/footer.php";
 ?>

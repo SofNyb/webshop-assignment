@@ -15,10 +15,6 @@ if(isset($_POST['productID'])) {
 
     // Tilføj produkt-id til kurven
     $_SESSION['cart'][] = $productID;
-
-    // Redirect brugeren tilbage til den forrige side eller en anden side efter tilføjelsen
-    /*header("Location: previous_page.php"); // Erstat "previous_page.php" med den ønskede destinations-side
-    exit(); // Sørg for at afslutte scriptet efter omdirigering*/
 }
 
 if(isset($_GET["productID"])) {
@@ -33,38 +29,6 @@ if(isset($_GET["productID"])) {
     } catch(PDOException $e) {
         echo "Fejl: " . $e->getMessage();
     }
-        /*
-            if (!empty($_POST)) {
-                $checkoutAmount = $_POST["productAmount"];
-                /* $productID = $_POST["productID"];
-                *$productName = $_POST["productName"];
-                 $productPicture = $_POST["productPicture"];
-                 $productPrice = $_POST["productPrice"];
-
-        // henter information fra produktet fra £product-array
-        $checkoutName = $products[0]["productName"];
-        $checkoutPicture = $products[0]["productPicture"];
-        $checkoutPrice = $products[0]["productPrice"];
-
-        $sql_insert = "INSERT INTO `checkout` (`productID`,`checkoutName`, `checkoutPicture`, `checkoutPrice`, `checkoutAmount`)
-                        VALUES ('$productID', '$checkoutName', '$checkoutPicture', '$checkoutPrice', '$checkoutAmount')";
-
-        try {
-            $stmt = $handler->prepare($sql_insert);
-            /*$stmt->bindParam(':productName', $productName, PDO::PARAM_STR);
-            $stmt->bindParam(':productPicture', $productPicture, PDO::PARAM_STR);
-            $stmt->bindParam(':productPrice', $productPrice, PDO::PARAM_INT);
-            $stmt->bindParam(':productAmount', $productAmount, PDO::PARAM_INT);
-            $stmt->execute([$productID, $checkoutName, $checkoutPicture, $checkoutPrice, $checkoutAmount]);
-        } catch(PDOException $e) {
-            echo "Fejl: " . $e->getMessage();
-        }
-
-    }
-    } catch(PDOException $e) {
-        echo "Fejl: " . $e->getMessage();
-    }
-    exit;*/
 }
 
 if(isset($products) && !empty($products)) {
@@ -117,29 +81,8 @@ if(isset($products) && !empty($products)) {
 
                                 <input type="hidden" name="productID" value="<?php echo $product['productID']; ?>">
 
-                                <!--<input type="hidden" name="productName" value="<?php /*echo $product['productName']; */?>">
-                                <input type="hidden" name="productPicture" value="<?php /*echo $product['productPicture']; */?>">
-                                <input type="hidden" name="productPrice" value="<?php /*echo $product['productPrice']; */?>">-->
-
                                 <input type="submit" value="Tilføj til kurv" class="btn btn-primary">
 
-                                <!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Produkt tilføjet til kurv</h1>
-                                                <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn text-light btn-success" data-bs-dismiss="modal">
-                                                    Fortsæt
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>-->
                         </div>
 
                     </div>
@@ -154,24 +97,5 @@ if(isset($products) && !empty($products)) {
 }else {
     echo "Fejl";
 }
-
-// Håndtering af indsættelse i checkout-tabellen
-/*if (!empty($_POST['productID']) && !empty($_POST['productAmount'])) {
-    $productID = $_POST['productID'];
-    $productAmount = $_POST['productAmount'];
-
-    try {
-        $sql_insert = "INSERT INTO `checkout` (`productID`, `checkoutName`, `checkoutPicture`, `checkoutPrice`, `checkoutAmount`)
-                        SELECT productID, productName, productPicture, productPrice, :productAmount 
-                        FROM product WHERE productID = :productID";
-        $stmt = $handler->prepare($sql_insert);
-        $stmt->bindParam(':productID', $productID, PDO::PARAM_INT);
-        $stmt->bindParam(':productAmount', $productAmount, PDO::PARAM_INT);
-        $stmt->execute();
-
-    } catch(PDOException $e) {
-        echo "Fejl: " . $e->getMessage();
-    }
-}*/
 
 include "includes/footer.php";

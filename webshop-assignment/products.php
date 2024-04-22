@@ -63,9 +63,6 @@ try {
                         </div>
                     </a>
                     <div class="mt-3 card-footer">
-                            <!--<a class="btn btn-primary" href="product.php?productID=<?php /*echo $product['productID'] */?>">
-                                Læs mere
-                            </a>-->
                         <?php if ($is_logged_in && $_SESSION['userRole'] == '1') : ?>
                             <div class="col text-end">
                                 <a class="btn btn-danger text-end" href="?action=delete&productID=<?php echo $product['productID'] ?>">
