@@ -33,7 +33,7 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
 
 $productMessage = "";
 
-// check if the user has clicked the button "UPLOAD"
+// check if the user has clicked the button "Opret"
 
 if (isset($_POST['Opret'])) {
     $productName = $_POST['productName'];
@@ -42,28 +42,28 @@ if (isset($_POST['Opret'])) {
     $productType = $_POST['productType'];
     $productDesc = $_POST['productDesc'];
 
-    $productPicture = $_FILES["productPicture"]["name"];
+    /*$productPicture = $_FILES["productPicture"]["name"];
     $tempName = $_FILES["productPicture"]["tmp_name"];
-    $folder = "uploads/".$productPicture;
+    $folder = "http://localhost/webshop-assignment/productPicture";*/
 
         // query to insert the submitted data
-        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productBrand`, `productType`, `productDesc`, `productPicture`)
-                VALUES ('$productName', '$productPrice', '$productBrand', '$productType', '$productDesc', '$productPicture')";
+        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productBrand`, `productType`, `productDesc`)
+                VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $handler->prepare($sql);
-        $stmt->execute([$productName, $productPrice, $productBrand, $productType, $productDesc, $productPicture]);
-
+        $stmt->execute([$productName, $productPrice, $productBrand, $productType, $productDesc]);
+        $productMessage = "Produkt blev oprettet";
         // Add the image to the "uploads" folder"
 
-        if (move_uploaded_file($tempName, $folder)) {
+        /*if (move_uploaded_file($tempName, $folder)) {
 
             $productMessage = "Image uploaded successfully";
 
         }else{
-            /*$lastError = error_get_last();
+            $lastError = error_get_last();
             if ($lastError !== null && isset($lastError['message'])) {
                 print_r($lastError);
-                $errorMessage = $lastError['message'];*/
+                $errorMessage = $lastError['message'];
 
 
             $productMessage = "Failed to upload image";
@@ -71,11 +71,11 @@ if (isset($_POST['Opret'])) {
                 // Hvis der ikke er nogen specifik fejlmeddelelse, kan du give en generel besked
                 $productMessage = "Der opstod en ukendt fejl under flytning af filen.";
 
-            }*/
+            }
 
-    }
+    }*/
 
-    if (is_uploaded_file($tempName)) {
+    /*if (is_uploaded_file($tempName)) {
         if (move_uploaded_file($tempName, $folder)) {
             $productMessage = "Image uploaded successfully";
         } else {
@@ -83,7 +83,7 @@ if (isset($_POST['Opret'])) {
         }
     } else {
         $productMessage = "Produkt blev oprettet";
-    }
+    }*/
 
 }
 
