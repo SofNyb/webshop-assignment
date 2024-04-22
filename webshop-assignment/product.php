@@ -6,6 +6,12 @@ include "includes/head.php";
 // Check om der er modtaget et produkt-id fra en form eller andet sted
 if(isset($_POST['productID'])) {
     $productID = $_POST['productID'];
+    $productAmount = $_POST['productAmount'];
+
+    $product = array(
+        'productID' => $productID,
+        'productAmount' => $productAmount
+    );
 
     // Tilføj produkt-id til kurven i sessionen
     if(!isset($_SESSION['cart'])) {
@@ -14,7 +20,7 @@ if(isset($_POST['productID'])) {
     }
 
     // Tilføj produkt-id til kurven
-    $_SESSION['cart'][] = $productID;
+    $_SESSION['cart'][] = $product;
 }
 
 if(isset($_GET["productID"])) {
