@@ -60,16 +60,27 @@ try {
     <?php foreach ($types as $type) : ?>
         <div class="accordion" id="accordion_<?php echo $type['productType']; ?>">
             <div class="accordion-item">
-                <h2 class="accordion-header" id="heading_<?php echo $type['productType']; ?>">
+                <p class="accordion-header" id="heading_<?php echo $type['productType']; ?>">
                     <button class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapse_<?php echo $type['productType']; ?>"
-                            aria-expanded="false"
-                            aria-controls="collapse_<?php echo $type['productType']; ?>">
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapse_<?php echo $type['productType']; ?>"
+                      aria-expanded="false"
+                      aria-controls="collapse_<?php echo $type['productType']; ?>">
+                        <?php
+                        $kategori = $type['productType'];
+                        $antalProdukter = 0;
+                        foreach ($products as $product) {
+                            if ($product['productType'] === $kategori) {
+                                $antalProdukter++;
+                            }
+                        }
+                        ?>
+                        <!-- Badge viser antallet af produkter i productType -->
+                        <span class="badge bg-success rounded-pill me-2"><?php echo $antalProdukter; ?></span>
                         <?php echo $type['productType']; ?>
                     </button>
-                </h2>
+                </p>
                 <div id="collapse_<?php echo $type['productType']; ?>"
                      class="accordion-collapse collapse"
                      aria-labelledby="heading_<?php echo $type['productType']; ?>"
@@ -89,7 +100,7 @@ try {
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col">
-                                                <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                                                <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top w-50" alt="<?php echo $product['productName']; ?>">
                                             </div>
                                             <div class="col">
                                                 <strong><?php echo $product['productName']; ?></strong>
