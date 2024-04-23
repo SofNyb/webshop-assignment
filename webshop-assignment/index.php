@@ -52,7 +52,7 @@ try {
 </div>
 
     <!-- indhold -->
-<div class="container mt-5">
+<div class="container my-5">
 
     <h4>Kategorier</h4>
 
@@ -98,20 +98,20 @@ try {
 
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex align-items-center" style="height: 8em;">
-                                        <div class="row">
-                                            <div class="col">
-                                                <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top w-50 align-self-center" alt="<?php echo $product['productName']; ?>">
-                                            </div>
-                                            <div class="col">
-                                                <strong><?php echo $product['productName']; ?></strong>
-                                            </div>
-                                            <div class="col">
-                                                <p class="text-muted"><?php echo $product['productPrice']; ?>kr.</p>
-                                            </div>
-                                            <div class="col">
-                                                <a class="btn btn-primary" href="product.php?productID=<?php echo $product['productID']; ?>">Læs mere</a>
-                                            </div>
-                                        </div>
+                                        <img src="productPicture/<?php echo $product['productPicture']; ?>"
+                                             class="card-img-top w-25 align-self-center img-fluid me-2"
+                                             alt="<?php echo $product['productName']; ?>"
+                                             style="max-width: 5em; max-height: 100%">
+                                        <strong class="col">
+                                            <?php echo $product['productName']; ?>
+                                        </strong>
+                                        <p class="text-muted col">
+                                            <?php echo $product['productPrice']; ?>kr.
+                                        </p>
+                                        <a class="btn btn-primary col-auto"
+                                           href="product.php?productID=<?php echo $product['productID']; ?>">
+                                            Læs mere
+                                        </a>
                                     </li>
                                 </ul>
                                 <hr>
@@ -122,8 +122,6 @@ try {
             </div>
         </div>
     <?php endforeach; ?>
-
-
 
 </div>
 
