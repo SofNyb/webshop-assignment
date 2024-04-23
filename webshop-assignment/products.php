@@ -50,18 +50,18 @@ try {
     <div class="row">
         <?php foreach ($products as $product) : ?>
             <div class="col-sm-6 col-md-4">
-                <div class="card mb-3">
-                    <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $product['productID']?>">
-                        <div class="card-body">
-                            <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                <div class="card mb-3 h-100">
+                    <div class="card-body">
+                        <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $product['productID']?>">
+                            <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top w-75 mx-auto d-block" alt="<?php echo $product['productName']; ?>">
                             <h5 class="card-title">
                                 <?php echo $product['productName']; ?>
                             </h5>
                             <p class="card-subtitle text-muted">
                                 <?php echo $product['productPrice']; ?>kr.
                             </p>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                     <div class="mt-3 card-footer">
                         <?php if ($is_logged_in && $_SESSION['userRole'] == '1') : ?>
                             <div class="col text-end">
