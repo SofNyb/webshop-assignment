@@ -97,10 +97,10 @@ try {
                             foreach ($filteredProducts as $product) : ?>
 
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
+                                    <li class="list-group-item d-flex align-items-center" style="height: 8em;">
                                         <div class="row">
                                             <div class="col">
-                                                <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top w-50" alt="<?php echo $product['productName']; ?>">
+                                                <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top w-50 align-self-center" alt="<?php echo $product['productName']; ?>">
                                             </div>
                                             <div class="col">
                                                 <strong><?php echo $product['productName']; ?></strong>
