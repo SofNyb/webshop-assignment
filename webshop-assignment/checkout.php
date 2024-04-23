@@ -193,7 +193,10 @@ if (isset($_POST['betaling'])) {
                                         </div>
                                         <div class="col">
                                             <small class="card-text text-muted">
-                                                <?php echo $cartItem['productAmount']; ?> stk. tilføjet
+                                                <?php
+                                                // Formatering af antal for at indsætte et punktum som tusindseparator, hvis der er flere end 1000
+                                                $formattedAmount = $cartItem['productAmount'] > 1000 ? number_format($cartItem['productAmount'], 0, ',', '.') : $cartItem['productAmount'];
+                                                echo $formattedAmount; ?> stk. tilføjet
                                             </small>
                                         </div>
                                     </div>
@@ -235,11 +238,15 @@ if (isset($_POST['betaling'])) {
                 }
             }
 
-            // Den samlede pris er nu gemt i totalPrice:
+            // Formatering af prisen for at indsætte et punktum som tusindseparator, hvis den er større end 1000
+            $formattedPrice = $totalPrice > 1000 ? number_format($totalPrice, 0, ',', '.') : $totalPrice;
+
+
+            // Den samlede pris er nu gemt i formattedPrice:
             echo '
                 <p>Total (inkl. moms)
                     <hr>
-                    <h4 class="text-end">' . $totalPrice . " kr." .
+                    <h4 class="text-end">' . $formattedPrice . " kr." .
                     '</h4>
                 </p>
                 
