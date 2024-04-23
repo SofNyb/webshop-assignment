@@ -34,108 +34,32 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== '1') {
 $productMessage = "";
 
 // check if the user has clicked the button "Opret"
-
 if (isset($_POST['Opret'])) {
     $productName = $_POST['productName'];
     $productBrand = $_POST['productBrand'];
     $productPrice = $_POST['productPrice'];
     $productType = $_POST['productType'];
     $productDesc = $_POST['productDesc'];
-
-    /*$productPicture = $_FILES["productPicture"]["name"];
-    $tempName = $_FILES["productPicture"]["tmp_name"];
-    $folder = "http://localhost/webshop-assignment/productPicture";*/
+    $productPicture = $_FILES['productPicture']['name'];
 
         // query to insert the submitted data
-        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productBrand`, `productType`, `productDesc`)
-                VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productBrand`, `productType`, `productDesc`, `productPicture`)
+                VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = $handler->prepare($sql);
-        $stmt->execute([$productName, $productPrice, $productBrand, $productType, $productDesc]);
-        $productMessage = "Produkt blev oprettet";
+        $stmt->execute([$productName, $productPrice, $productBrand, $productType, $productDesc, $productPicture]);
+        $productMessage = "Produktet blev oprettet";
         // Add the image to the "uploads" folder"
-
-        /*if (move_uploaded_file($tempName, $folder)) {
-
-            $productMessage = "Image uploaded successfully";
-
-        }else{
-            $lastError = error_get_last();
-            if ($lastError !== null && isset($lastError['message'])) {
-                print_r($lastError);
-                $errorMessage = $lastError['message'];
-
-
-            $productMessage = "Failed to upload image";
-            /*} else {
-                // Hvis der ikke er nogen specifik fejlmeddelelse, kan du give en generel besked
-                $productMessage = "Der opstod en ukendt fejl under flytning af filen.";
-
-            }
-
-    }*/
-
-    /*if (is_uploaded_file($tempName)) {
-        if (move_uploaded_file($tempName, $folder)) {
-            $productMessage = "Image uploaded successfully";
-        } else {
-            $productMessage = "Failed to upload image";
-        }
+    $uploadDirectory = $_SERVER['DOCUMENT_ROOT']."/webshop-assignment/productPicture/";
+    ini_set('upload_max_filesize', '32M');
+    if (move_uploaded_file($_FILES["productPicture"]["tmp_name"], $uploadDirectory . $_FILES["productPicture"]["name"])) {
+        $productMessage = "Produktet er nu tilføjet.";
     } else {
-        $productMessage = "Produkt blev oprettet";
-    }*/
+        $productMessage = "Hov! Der skete en fejl. Prøv igen.";
+    }
 
 }
 
-/*if (isset($_POST['productName']) && isset($_POST['productColor']) && isset($_POST['productBrand']) && isset($_POST['productPrice'])) :*/
-
-/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    # Assigning user data to variables for easy access later.
-    $productName = $_POST['productName'];
-    $productColor = $_POST['productColor'];
-    $productBrand = $_POST['productBrand'];
-    $productPrice = $_POST['productPrice'];
-    $productType = $_POST['productType'];
-    $productDesc = $_POST['productDesc'];
-
-    // fil upload
-    if (isset($_FILES['productPicture']) && $_FILES['productPicture']['error'] === UPLOAD_ERR_OK) {
-        print_r($_FILES['productPicture']);
-        $allowedTypes = ['image/jpeg', 'image/jpg'];
-        $maxFileSize = 5 * 1024 * 1024; // 5 MB
-
-        if (in_array($_FILES['productPicture']['type'], $allowedTypes) && $_FILES['productPicture']['size'] <= $maxFileSize) {
-            // Filen er af tilladt type og størrelse
-            $fileName = $_FILES["productPicture"]["name"];
-            $tempName = $_FILES["productPicture"]["tmp_name"];
-            $folder = "uploads/" . $fileName;
-
-            if (move_uploaded_file($tempName, $folder)) {
-                $productMessage = "Image uploaded successfully";
-                $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`, `productPicture`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-                $stmt = $handler->prepare($sql);
-                $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc, $fileName]);
-
-                if ($stmt->rowCount() > 0) {
-                    $productMessage = 'Produktet er nu tilføjet';
-                } else {
-                    $productMessage = "Der skete en fejl." . '<br>' . "Prøv igen.";
-                }
-            } else {
-                $productMessage = "Der opstod en fejl under upload af billedet.";
-            }
-        } else {
-            $productMessage = "Den uploadede fil er ikke tilladt eller er for stor.";
-        }
-    } else {
-        $productMessage = "Der blev ikke valgt nogen fil, men produktet er nu tilføjet.";
-        $sql = "INSERT INTO `product` (`productName`, `productPrice`, `productColor`, `productBrand`, `productType`, `productDesc`) VALUES (?, ?, ?, ?, ?, ?)";
-
-        $stmt = $handler->prepare($sql);
-        $stmt->execute([$productName, $productPrice, $productColor, $productBrand, $productType, $productDesc]);
-    }
-}*/
 ?>
 
 <div class="container mt-5 text-center">
