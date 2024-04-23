@@ -53,7 +53,7 @@ try {
                 <div class="card mb-3">
                     <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $product['productID']?>">
                         <div class="card-body">
-                            <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                            <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
                             <h5 class="card-title">
                                 <?php echo $product['productName']; ?>
                             </h5>

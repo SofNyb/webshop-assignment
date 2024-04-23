@@ -63,8 +63,8 @@ if(isset($products) && !empty($products)) {
         <div class="card mb-3">
             <div class="row g-0">
 
-                <div class="col-md-4">
-                    <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                <div class="col-md-4 mt-5">
+                    <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
                 </div>
 
                 <div class="col-md-8">
