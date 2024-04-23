@@ -186,9 +186,16 @@ if (isset($_POST['betaling'])) {
                                         <h5 class="card-title">
                                             <?php echo $cartItem['productName']; ?>
                                         </h5>
-                                        <p class="card-text">
-                                            <?php echo $cartItem['productPrice']; ?>kr. x <?php echo $cartItem['productAmount']; ?>
-                                        </p>
+                                        <div class="col">
+                                            <p class="card-text">
+                                                <?php echo $cartItem['productPrice']; ?>kr. pr. stk.
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <small class="card-text text-muted">
+                                                <?php echo $cartItem['productAmount']; ?> stk. tilføjet
+                                            </small>
+                                        </div>
                                     </div>
                                 </a>
                             </div>
