@@ -73,7 +73,8 @@ if(isset($products) && !empty($products)) {
                             <?php echo $product['productName']; ?>
                         </h4>
                         <p class="card-text text-muted">
-                            <?php echo $product['productDesc']; ?>
+                            <!--nl2br(); tillader br ved hvert linjeskift-->
+                            <?php echo nl2br($product['productDesc']); ?>
                         </p>
 
                         <h4 class="card-text my-5">
