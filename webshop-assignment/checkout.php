@@ -177,8 +177,8 @@ if (isset($_POST['betaling'])) {
             ?>
                     <div class="card mb-3">
                         <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="uploads/<?php echo $cartItem['productPicture']; ?>" class="card-img-top" alt="<?php echo $cartItem['productName']; ?>">
+                            <div class="col-md-4 d-flex align-items-center">
+                                <img src="productPicture/<?php echo $cartItem['productPicture']; ?>" class="card-img-top w-75" alt="<?php echo $cartItem['productName']; ?>">
                             </div>
                             <div class="col-md-8">
                                 <a style="color: black; text-decoration: none;" href="product.php?productID=<?php echo $productID ?>">

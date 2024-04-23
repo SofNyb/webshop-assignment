@@ -40,7 +40,7 @@ try {
 <style>
     /* Tilføj en klasse til billederne for at angive en fast højde */
     .productImage {
-        height: 150px; /* Angiv den ønskede højde her */
+        height: 160px; /* Angiv den ønskede højde her */
         object-fit: cover; /* Sørg for, at billedet fylder beholderen uden at miste proportioner */
     }
 </style>
