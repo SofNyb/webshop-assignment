@@ -89,7 +89,7 @@ try {
                                     <li class="list-group-item">
                                         <div class="row">
                                             <div class="col">
-                                                <img src="uploads/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
+                                                <img src="productPicture/<?php echo $product['productPicture']; ?>" class="card-img-top" alt="<?php echo $product['productName']; ?>">
                                             </div>
                                             <div class="col">
                                                 <strong><?php echo $product['productName']; ?></strong>
