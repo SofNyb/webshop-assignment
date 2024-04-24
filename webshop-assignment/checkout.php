@@ -193,10 +193,7 @@ if (isset($_POST['betaling'])) {
                                         </div>
                                         <div class="col">
                                             <small class="card-text text-muted">
-                                                <?php
-                                                // Formatering af antal for at indsætte et punktum som tusindseparator, hvis der er flere end 1000
-                                                $formattedAmount = $cartItem['productAmount'] > 1000 ? number_format($cartItem['productAmount'], 0, ',', '.') : $cartItem['productAmount'];
-                                                echo $formattedAmount; ?> stk. tilføjet
+                                                <?php echo $cartItem['productAmount']; ?> stk. tilføjet
                                             </small>
                                         </div>
                                     </div>
