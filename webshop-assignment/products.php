@@ -24,7 +24,7 @@ if ($is_logged_in && $_SESSION['userRole'] == '1' && isset($_GET['action']) && $
 }
 
 // Hent alle produkter fra databasen
-$sql = 'SELECT productID, productName, productPicture, productPrice FROM product';
+$sql = 'SELECT productID, productName, productPicture, productPrice FROM product ORDER  BY productType ASC';
 
 try {
     // Forbered og udfør forespørgslen
