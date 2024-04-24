@@ -25,39 +25,10 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         }
     }
 
-    /* Her bliver productAmount sendt korrekt over
-     * // Opret et array til at gemme produktID'er og deres tilsvarende antal
-    $productInfo = [];
-
-    // Gennemgå hvert element i $checkouts
-    foreach ($checkouts as $item) {
-        // Hvis elementet er et array og har 'productID' indekset
-        if (is_array($item) && isset($item['productID'])) {
-            // Opret et unikt nøgle for hvert produktID
-            $productKey = $item['productID'];
-
-            // Tilføj produktID og tilhørende antal til $productInfo array
-            if (!isset($productInfo[$productKey])) {
-                $productInfo[$productKey] = 0;
-            }
-            $productInfo[$productKey] += $item['productAmount'];
-        }
-    }
-
     // Opret et array til at gemme produktID'er
     $productIDs = [];
 
-    // Gennemgå produktInfo array for at oprette placeholders og hente produktID'er
-    foreach ($productInfo as $productID => $productAmount) {
-
-        // Tilføj produktID til $productIDs array
-        $productIDs[] = $productID;
-    }*/
-
     try {
-        // Opret et array til at holde produktID'er
-        $productIDs = [];
-
         // Gennemgå de konsoliderede produkter i kurven for at hente produktID'er
         foreach ($cartItems as $cartItem) {
             // Tilføj produktID til $productIDs array

@@ -55,7 +55,7 @@ if (isset($_POST['Opret'])) {
     if (move_uploaded_file($_FILES["productPicture"]["tmp_name"], $uploadDirectory . $_FILES["productPicture"]["name"])) {
         $productMessage = "Produktet er nu tilføjet.";
     } else {
-        $productMessage = "Hov! Der skete en fejl. Prøv igen.";
+        $productMessage = "Produktet er blevet uploadet, men billedet kom ikke med.";
     }
 
 }
